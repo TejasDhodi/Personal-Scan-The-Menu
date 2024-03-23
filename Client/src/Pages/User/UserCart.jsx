@@ -14,6 +14,10 @@ const UserCart = () => {
     const [isTableOccupied, setIsTableOccupied] = useState(false);
     const [tableNumber, setTableNumber] = useState(null);
 
+    const [occupiedTable, setOccupiedTable] = useState([]);
+    const [occupiedTableNo, setOccupiedtableNo] = useState([]);
+    const [leftTableNo, setLeftTableNo] = useState([]);
+
     const dispatch = useDispatch();
     const data = useSelector(state => state.cart);
     const userName = useSelector(state => state.authentication.userProfile?.fullName)
@@ -119,6 +123,20 @@ const UserCart = () => {
         }
     }
 
+    const handleOccupiedTable = async () => {
+        try {
+            const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/occupied');
+            const data = response.data?.getTableNo;
+
+            if (response.status === 200) {
+                setOccupiedTable(data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     useEffect(() => {
         setCartData(data.data);
     }, [data])
@@ -126,8 +144,21 @@ const UserCart = () => {
     useEffect(() => {
         handleTotalAmount();
         handleTotalQuatity();
+        handleOccupiedTable();
     }, [cartData])
 
+    useEffect(() => {
+        const receivedTableNo = occupiedTable.map(item => item.tableNo);
+        setOccupiedtableNo(receivedTableNo)
+    }, [occupiedTable])
+
+    useEffect(() => {
+        console.log('Occupied table number', occupiedTableNo);
+        let allValues = [...occupiedTableNo, ...tableNumberData]
+        let leftTables = allValues.filter(tableNo => !occupiedTableNo.includes(tableNo) || !tableNumberData.includes(tableNo));
+
+        setLeftTableNo(leftTables)
+    }, [occupiedTable])
     return (
         <main className='cartContainer main'>
             <div className="cartBack" onClick={handleGoBack}>
@@ -194,7 +225,7 @@ const UserCart = () => {
                                         <option value="" disabled>Select Table Number</option>
 
                                         {
-                                            tableNumberData.map((tableNo, index) => (
+                                            leftTableNo.map((tableNo, index) => (
                                                 <>
                                                     <option value={tableNo} key={index}>{tableNo}</option>
                                                 </>

@@ -19,6 +19,8 @@ const Register = () => {
     const [showInputs, setShowInputs] = useState(false);
     const [authToken, setAuthToken] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     // To hadle the onchange of inputs
@@ -34,6 +36,7 @@ const Register = () => {
     const handleSendOtp = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true)
             const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail', { email: registerInputs.email }, {
                 headers: {
                     "Content-Type": 'application/json'
@@ -43,11 +46,13 @@ const Register = () => {
             if (response.status === 200) {
                 setShowVerification(true);
                 alert('Otp Sent')
+                setLoading(false);
                 navigate('/signin')
             }
 
             setErrorMsg('')
         } catch (error) {
+            setLoading(false)
             setErrorMsg(error.response.data.message)
             console.log('Error While Sending Otp To Mail');
         }
@@ -57,6 +62,7 @@ const Register = () => {
     const handleVerifyOtp = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true)
             const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail/verify', {
                 email: registerInputs.email,
                 enteredOtp: Number(registerInputs.enteredOtp)
@@ -70,11 +76,13 @@ const Register = () => {
                 setAuthToken(data?.token)
                 setShowInputs(true);
                 setShowVerification(false)
+                setLoading(false);
             }
 
             setErrorMsg('');
 
         } catch (error) {
+            setLoading(false);
             setErrorMsg(error.response.data.message)
             console.log('Unable to verify otp : ', error);
         }
@@ -84,6 +92,7 @@ const Register = () => {
     const handleRegisterSubmit = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true);
             console.log(registerInputs);
             const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/register', registerInputs, {
                 headers: {
@@ -94,11 +103,14 @@ const Register = () => {
 
             if (response.status === 201) {
                 alert('Registration SuccessFull')
+                navigate('/signin')
+                setLoading(false)
             }
             const data = response.data;
             setErrorMsg('');
             console.log('Registered User: ', data);
         } catch (error) {
+            setLoading(false);
             setErrorMsg(error.response.data.message)
             console.log('Error while registering user : ', error);
         }
@@ -123,14 +135,15 @@ const Register = () => {
                             {
                                 showInputs ?
                                     <span>✅</span> :
-                                    <button onClick={handleSendOtp}>{showVerification ? 'Resend' : 'Get Otp'}</button>
+                                    <button onClick={handleSendOtp}>{showVerification ? 'Resend' : loading ? '...' : 'Get Otp'}</button>
+                                    
                             }
                         </div>
                         {
                             showVerification &&
                             <div className="emailVal otpVal">
                                 <input type="text" name="enteredOtp" id="enteredOtp" value={registerInputs.enteredOtp} onChange={handleRegisterInputs} autoFocus />
-                                <button onClick={handleVerifyOtp}>Verify</button>
+                                <button onClick={handleVerifyOtp}>{loading? '...' : 'Verify'}</button>
                             </div>
                         }
                     </div>
@@ -158,7 +171,7 @@ const Register = () => {
                 </div>
 
                 <div className="controls">
-                    <button type='submit' className="btn">Submit</button>
+                    <button type='submit' className="btn">{loading? '...' : 'Submit'}</button>
                 </div>
 
                 <div className="askAccount">

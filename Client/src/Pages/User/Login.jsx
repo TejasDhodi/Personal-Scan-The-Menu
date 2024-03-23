@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
@@ -17,7 +17,7 @@ const Login = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [showInputs, setShowInputs] = useState(false);
   const [authToken, setAuthToken] = useState('');
-
+  const [loading, setLoading] = useState(false);
 
   const handleLoginInputs = (e) => {
     const { value, name } = e.target;
@@ -28,12 +28,14 @@ const Login = () => {
   }
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   // To Send Otp
   const handleSendOtp = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true)
       const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail', { email: loginInputs.email }, {
         headers: {
           "Content-Type": 'application/json'
@@ -43,9 +45,11 @@ const Login = () => {
       if (response.status === 200) {
         setShowVerification(true);
         alert('Otp Sent')
+        setLoading(false)
       }
       setErrorMsg('');
     } catch (error) {
+      setLoading(false);
       setErrorMsg(error.response.data.message)
       console.log('Error While Sending Otp To Mail');
     }
@@ -55,6 +59,7 @@ const Login = () => {
   const handleVerifyOtp = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail/verify', {
         email: loginInputs.email,
         enteredOtp: Number(loginInputs.enteredOtp)
@@ -67,11 +72,13 @@ const Login = () => {
         setAuthToken(data?.token)
         setShowInputs(true);
         setShowVerification(false)
+        setLoading(false);
       }
 
       setErrorMsg('');
 
     } catch (error) {
+      setLoading(false);
       setErrorMsg(error.response.data.message)
       console.log('Unable to verify otp : ', error);
     }
@@ -80,6 +87,7 @@ const Login = () => {
   const handleLoginUser = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
 
       const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/login', loginInputs, {
         headers: {
@@ -94,10 +102,13 @@ const Login = () => {
       if (response.status === 200) {
         alert('Login SuccessFull');
         dispatch(saveAuthToken(data?.token))
+        setLoading(true)
+        navigate('/menu')
       }
 
       setErrorMsg('');
     } catch (error) {
+      setLoading(false)
       setErrorMsg(error.response.data.message)
       console.log('Unable to login user');
     }
@@ -121,14 +132,15 @@ const Login = () => {
                 {
                   showInputs ?
                     <span>✅</span> :
-                    <button onClick={handleSendOtp}>{showVerification ? 'Resend' : 'Get Otp'}</button>
+                    <button onClick={handleSendOtp}>{showVerification ? 'Resend' : loading ? '...' : 'Get Otp'}</button>
+
                 }
               </div>
               {
                 showVerification &&
                 <div className="emailVal otpVal">
                   <input type="text" name="enteredOtp" id="enteredOtp" value={loginInputs.enteredOtp} onChange={handleLoginInputs} autoFocus />
-                  <button onClick={handleVerifyOtp}>Verify</button>
+                  <button onClick={handleVerifyOtp}>{loading? '...' : 'Verify'}</button>
                 </div>
               }
             </div>
@@ -144,7 +156,7 @@ const Login = () => {
           </div>
 
           <div className="controls">
-            <button type='submit' className='btn'>Login</button>
+            <button type='submit' className='btn'>{loading? '...' : 'Login'}</button>
           </div>
 
           <div className="askAccount">
