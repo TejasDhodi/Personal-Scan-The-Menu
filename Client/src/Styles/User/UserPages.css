@@ -1,0 +1,506 @@
+/* Contact Page */
+.contactContainer {
+    width: 100%;
+}
+
+.map {
+    overflow: hidden;
+    height: 50vh;
+    width: 100%;
+    margin: 8rem auto 2rem;
+    position: relative;
+}
+
+.map iframe {
+    border: none;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.contactDetailsContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+/* Contact card */
+.contactCard {
+    box-shadow: 0 0 15px;
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    width: 22rem;
+    font-size: 1vw;
+    background-image: url("https://images.unsplash.com/photo-1621188988909-fbef0a88dc04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZvb2RzfGVufDB8fDB8fHww");
+}
+
+.contactDetails {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.contactDetails:first-child,
+.contactDetails:nth-child(2) {
+    margin-bottom: 2rem;
+}
+
+.contactDetailsIcon {
+    padding: 0.9rem;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.contactInfo h3,
+.contactInfo p {
+    text-align: left;
+}
+
+/* Contact Form */
+.contactForm {
+    box-shadow: 0 0 15px;
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    height: auto;
+    background-image: url("https://images.unsplash.com/photo-1621188988909-fbef0a88dc04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZvb2RzfGVufDB8fDB8fHww");
+    object-fit: cover;
+    background-position: center;
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+}
+
+.contactForm .inputs input,
+.contactForm .inputs textarea {
+    border: 1px solid;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.contactForm .controls .btn {
+    padding: 0.2rem 0.5rem;
+}
+
+/* Sign Up and Sign In Page */
+
+.formContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    box-shadow: 0 0 15px;
+    width: 38rem;
+    padding: 1rem;
+    border-radius: 1rem 
+}
+
+.login {
+    width: 35rem;
+}
+
+.form .inputFields .inputs input {
+    border: 1px solid #EA6D27;
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.form .inputFields p {
+    text-align: center;
+    color: red;
+}
+
+.form .controls .btn {
+    width: 30%;
+}
+
+.authHeader {
+    margin: 1rem auto;
+    justify-content: center;
+}
+
+.authHeader svg, .authHeader h3 {
+   font-size: 2rem;
+}
+
+.inputFields .inputs .emailVal  {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    border: #EA6D27;
+    margin: 0.5rem 0;
+}
+
+.inputFields .inputs .emailVal input {
+    width: 80%;
+    color: #EA6D27;
+    border: 1px solid #EA6D27;
+}
+
+.inputFields .inputs .otpVal input {
+    width: 30%;
+}
+
+.inputFields .inputs .emailVal button {
+    color: #efefef;
+    background: #EA6D27;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.3rem;
+}
+
+.askAccount {
+    margin: 1.5rem auto;
+}
+
+.askAccount p {
+    text-align: center;
+}
+
+/* Menu Page */
+.menuContainer {
+    padding: 10% 8% 2%;
+}
+
+.allDishes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.allDishes .dish {
+    background: #efefef;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 22rem;
+}
+
+.priceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.priceContainer .units {
+    display: flex;
+}
+
+.priceContainer .units p:first-child {
+    border-radius: 0.5rem 0 0 0.5rem;
+    cursor: pointer;
+}
+
+.priceContainer .units p:nth-child(2) {
+    border-radius: 0;
+}
+
+.priceContainer .units p:nth-child(3) {
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor: pointer;
+}
+
+.priceContainer p {
+    padding: 0.3rem 0.8rem;
+    background: rgb(44, 42, 42);
+    color: #fff;
+    border-radius: 0.5rem;
+}
+
+.priceContainer .controls {
+    width: 50%;
+}
+
+.priceContainer .expandControls {
+    width: 80%;
+}
+
+.priceContainer .controls .btn {
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+/* Cart Page */
+.cartContainer {
+    height: 100%;
+    padding: 9%;
+    padding-bottom: 0;
+}
+
+.cartBack a {
+    gap: 1rem;
+    border-bottom: 1px solid gray;
+    padding-bottom: 0.7rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.cartBack a svg {
+    color: #EA6D27;
+}
+
+.cartDetails {
+    margin: 1.5rem 0;
+}
+
+.cartDetails h3 {
+    text-decoration: underline #EA6D27;
+}
+
+.cartData {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.itemImg {
+    width: 6rem;
+    height: 6rem;
+    margin: 0;
+}
+
+.itemImg img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.quantityControl {
+    justify-content: space-around;
+    padding: 0 0.5rem;
+}
+
+.quantityControl span {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #EA6D27;
+}
+
+.itemControls button {
+    color: red;
+    font-size: 1.2rem;
+}
+
+.sliderContainer {
+    margin-bottom: 3rem;
+}
+
+.sliderHeader {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.sliderContainer .dish {
+    width: 100%;
+}
+
+.slick-slide>div {
+    margin: 0 10px;
+}
+
+/* Dish Details */
+.dishDetailsContainer {
+    padding: 10% 8% 2%;
+    display: flex;
+    gap: 2rem;
+}
+
+.dishDescriptionContainer .spacing {
+    margin: 1rem 0;
+}
+
+
+.dishDescriptionContainer h2,
+.dishDescriptionContainer h3 {
+    text-align: left;
+}
+
+/* categorizedMenu Page*/
+
+.categorizedMenu {
+    padding: 5%;
+    display: flex;
+}
+
+.categorizedMenu .dishContainer {
+    margin: 0;
+}
+
+/* Success Page */
+.orderSuccess {
+    padding: 10% 8% 0;
+    background: #d0cdcd;
+    height: 100vh;
+}
+
+.successMsg, .orderIds, .orderData {
+    margin: 1.5rem;
+}
+
+.orderData {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.orderData thead {
+    border-bottom: 1px solid;
+}
+.orderData tr td {
+    padding: 1rem;
+}
+
+.orderSuccess .controls .btn {
+    width: 20%;
+}
+
+/* User Profile */
+.profileNav {
+    position: relative;
+}
+
+.getProfileLinks .filterButton{
+    top: 10rem;
+    left: 1rem;
+    z-index: 51;
+}
+
+.userNavLinks {
+    height: 100vh;
+    background: antiquewhite;
+    width: 20rem;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    display: flex;  
+    flex-direction: column;
+    padding: 15rem 1rem 0;
+    gap: 1.5rem;
+    transition: 300ms ease;
+    z-index: 50;
+}
+
+.showUserNavlinks {
+    left: 0;
+}
+
+.userNavLinks li {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #101A24;
+}
+
+.activePro {
+    text-decoration: underline;
+    transform: scale(1.03);
+}
+
+.profile {
+    display: flex;
+}
+
+.profileControls {
+    width: 14vw;
+}
+
+.profileContents {
+    width: 86vw;
+    margin: 5rem 0;
+}
+
+/* WishLIst */
+.wishList .dish, .recentOrders .dish {
+    margin: 1rem 0;
+}
+
+/* Tables */
+
+.tableDetails {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    padding-top: 12%;
+}
+
+.tableContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.indicators {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: right;
+    margin-top: 1rem;
+}
+
+.available span {
+    background-color: green;
+    padding: 1rem;
+}
+
+.occupied span {
+    background-color: red;
+    padding: 1rem;
+}
+
+.tables {
+    background-color: green;
+    color: #d0cdcd;
+    padding: 4rem;
+    font-size: 2rem;
+}
+
+.occupiedTable {
+    background-color: red;
+}
+
+@media screen and (max-width: 840px) {
+    .menuContainer {
+        padding: 25% 2% 2%;
+    }
+    .sliderHeader h2 {
+        text-align: left;
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 481px) {
+    .cartContainer {
+        padding: 40% 0 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .menuContainer {
+        padding: 32% 2% 2%;
+    }
+
+    .sliderHeader h2 {
+        text-align: left;
+        font-size: 1.7rem;
+        line-height: 1.5;
+    }
+}

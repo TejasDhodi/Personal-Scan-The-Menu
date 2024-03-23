@@ -1,0 +1,48 @@
+/* Order Table */
+.table thead tr th {
+    background-color: #f7c8ad;
+}
+.markIcon {
+    cursor: pointer;
+    color: #EA6D27;
+}
+
+/* Pagination  */
+.pagination {
+    display: flex;
+    margin: 2rem auto;
+    width: 100%;
+    /* gap: 0.3rem; */
+    
+}
+
+.pagination li a{
+    border: 1px solid #EA6D27;
+    padding: 0.5rem 1rem; 
+    cursor: pointer;
+}
+
+.pagination li :hover {
+    transition: 300ms ease;
+    border: #585858;
+    background-color: #EA6D27;
+    color: aliceblue;
+}
+
+.active a{
+    background-color: #EA6D27;
+    color: aliceblue;
+    padding: 0.5rem 1rem; 
+}
+
+.pagination .previous a, .pagination .next a{
+    border: 2px solid #EA6D27;
+}
+
+.pagination .previous a {
+    margin-right: 0.8rem;
+}
+
+.pagination .next a {
+    margin-left: 0.8rem;
+}

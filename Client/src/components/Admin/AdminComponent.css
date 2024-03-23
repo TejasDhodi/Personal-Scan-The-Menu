@@ -1,0 +1,225 @@
+/* Admin Navbar */
+.adminNavbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 5.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.7rem 2rem;
+    z-index: 97;
+    box-shadow: 0 15px 15px;
+    background-color: #fff;
+}
+
+.adminNavItems {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.adminNavList .adminNavLink {
+    font-size: 1.2rem;
+}
+
+/* Admin Hero Component */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    height: 100vh;
+    width: 100%;
+}
+
+.widget h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.widget p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.widget {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    height: 15rem;
+    width: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* All Menu Component */
+.menuManage {
+    height: 100vh;
+    width: 100%;
+    margin: 7rem 0 2rem;
+}
+
+.menuDataContainer {
+    width: 100%;
+}
+
+.menuItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+    background-color: rgb(249, 192, 135);
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.menuList {
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.menuList img {
+    height: 5rem;
+    width: 10rem;
+}
+
+.menuList:first-child,
+.menuList:nth-child(2) {
+    text-align: left;
+}
+
+.menuList:nth-child(4) {
+    background-color: rgb(33, 143, 2);
+}
+
+.menuList:nth-child(4),
+.menuList:last-child {
+    color: #fff;
+    font-weight: bolder;
+    width: 30%;
+    padding: 0.5rem;
+    border-radius: 0 1.5rem;
+    cursor: pointer;
+}
+
+.menuList:last-child {
+    background-color: red;
+}
+
+.addDishControll {
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 1px solid#EA6D27;
+    background-image: linear-gradient(to right, #EA6D27, #f7cbb3);
+    cursor: pointer;
+}
+
+.addDishControll svg {
+    font-size: 5rem;
+    color: #fff;
+}
+
+/* Add Dish Component */
+.addDishContainer {
+   margin-top: 7rem;
+}
+
+
+.blur {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #414040;
+    opacity: 0.8;
+    z-index: 99
+}
+
+.addDishDetails {
+    width: 70vw;
+    border: 1px solid#EA6D27;
+    background-image: linear-gradient(to right, #EA6D27, #f7cbb3);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.addDishDetails h2 {
+    text-align: center;
+    text-decoration: underline;
+    font-size: 1.7rem;
+    color: #3d3838;
+}
+
+.dishData {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.inputs {
+    margin: 1rem 0;
+}
+
+.inputs input, textarea, select {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+}
+
+.dishData .inputs:nth-child(3) input {
+    border-bottom: none;
+}
+
+.inputs textarea {
+    border: 1px solid #fff;
+}
+
+.inputs label {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: #3d3838;
+    margin-bottom: 0.5rem;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #fff;
+}
+
+.controls button {
+    border: none;
+    padding: 0.5rem 1rem;
+    color: #3d3838;
+    font-weight: bolder;
+    border: 1px solid #EA6D27;
+}
+
+.closeDishContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 1rem;
+    background-image: linear-gradient(to right, #EA6D27, #f7cbb3);
+    border-radius: 0 0 0 40%;
+}
+
+.closeDishContainer svg {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+

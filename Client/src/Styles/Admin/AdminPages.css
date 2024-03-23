@@ -1,0 +1,25 @@
+.orders {
+    margin: 12% 0 3%;
+}
+
+.chooseOrders {
+    width: 100%;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.orderBtn {
+    width: 30%;
+    background:#585858;
+    padding: 0.7rem 1rem ;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.orderBtn:first-child {
+    border-right: 1px solid;
+}
+
+.highlightBtn {
+    background: #EA6D27;
+}
