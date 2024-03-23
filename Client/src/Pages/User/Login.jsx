@@ -34,7 +34,7 @@ const Login = () => {
   const handleSendOtp = async (e) => {
     try {
       e.preventDefault();
-      const response = await axios.post('http://localhost:3000/api/v1/sendmail', { email: loginInputs.email }, {
+      const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail', { email: loginInputs.email }, {
         headers: {
           "Content-Type": 'application/json'
         }
@@ -55,7 +55,7 @@ const Login = () => {
   const handleVerifyOtp = async (e) => {
     try {
       e.preventDefault();
-      const response = await axios.post('http://localhost:3000/api/v1/sendmail/verify', {
+      const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/sendmail/verify', {
         email: loginInputs.email,
         enteredOtp: Number(loginInputs.enteredOtp)
       });
@@ -81,7 +81,7 @@ const Login = () => {
     try {
       e.preventDefault();
 
-      const response = await axios.post('http://localhost:3000/api/v1/login', loginInputs, {
+      const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/login', loginInputs, {
         headers: {
           "Content-Type": 'application/json',
           Authorization: `Bearer ${authToken}`

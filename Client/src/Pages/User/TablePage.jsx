@@ -7,7 +7,7 @@ const TablePage = () => {
     const [occupiedTableNo, setOccupiedtableNo] = useState([]);
     const handleOccupiedTable = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/occupied');
+            const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/occupied');
             const data = response.data?.getTableNo;
 
             if (response.status === 200) {
