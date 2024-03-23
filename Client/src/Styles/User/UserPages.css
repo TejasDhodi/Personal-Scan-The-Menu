@@ -485,6 +485,15 @@
         text-align: left;
         font-size: 2.5rem;
     }
+
+    /* Dish Details */
+    .dishDetailsContainer {
+        flex-direction: column;
+    }
+
+    .dishDetailsContainer .dishControls{
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 481px) {
