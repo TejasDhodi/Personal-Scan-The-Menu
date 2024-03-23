@@ -64,7 +64,7 @@ const CategorizedMenu = () => {
 
   const handleCheckedFilter = async () => {
     try {
-      const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/dishes/filter/check', { checkedItem, selectCategory });
+      const response = await axios.post('http://localhost:3000/api/v1/dishes/filter/check', { checkedItem, selectCategory });
       const data = response.data;
 
       setfilteredDishes(data?.dishes.filter(item => item[filterType] == filterValue));

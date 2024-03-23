@@ -54,7 +54,7 @@ const UserCart = () => {
 
     // const handleCheckout = async () => {
     //     try {
-    //         const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/checkout', {
+    //         const response = await axios.post('http://localhost:3000/api/v1/checkout', {
     //             user: userName, orderedDish: data, amount: total, orderDelivered
     //         })
 
@@ -69,7 +69,7 @@ const UserCart = () => {
     //             "description": "Test Transaction",
     //             "image": "https://example.com/your_logo",
     //             "order_id": paymentData.order_id,
-    //             "callback_url": "https://personal-scan-the-menu.onrender.com/api/v1/checkout/verifyPayment",
+    //             "callback_url": "http://localhost:3000/api/v1/checkout/verifyPayment",
     //             "prefill": {
     //                 "name": "Gaurav Kumar",
     //                 "email": "gaurav.kumar@example.com",
@@ -97,7 +97,7 @@ const UserCart = () => {
 
     const handlePlaceOrder = async () => {
         try {
-            const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/placeOrder', {
+            const response = await axios.post('http://localhost:3000/api/v1/placeOrder', {
                 user: userName,
                 orderedDish: data,
                 amount: total,

@@ -47,7 +47,7 @@ const UpdateDish = () => {
             formData.append('category', inputs.category);
             formData.append('cusine', inputs.cusine);
 
-            const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/dishes/update/${id}`, formData, {
+            const response = await axios.put(`http://localhost:3000/api/v1/dishes/update/${id}`, formData, {
                 headers: {
                     "Content-Type": 'multipart/form-data'
                 }
@@ -64,7 +64,7 @@ const UpdateDish = () => {
 
     const getDishById = async () => {
         try {
-            const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/dishes/${id}`);
+            const response = await axios.get(`http://localhost:3000/api/v1/dishes/${id}`);
             const data = response.data?.dishdata;
 
             console.log('single dish', data);

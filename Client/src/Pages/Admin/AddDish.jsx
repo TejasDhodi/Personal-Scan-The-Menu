@@ -44,7 +44,7 @@ const AddDish = () => {
       formData.append('category', inputs.category);
       formData.append('cusine', inputs.cusine);
 
-      const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/createDish', formData, {
+      const response = await axios.post('http://localhost:3000/api/v1/createDish', formData, {
         headers: {
           "Content-Type": 'multipart/form-data'
         }

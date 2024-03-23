@@ -21,7 +21,7 @@ const App = () => {
   const getDishData = async () => {
     try {
 
-      const response = await axios.get('http://localhost:3000/api/v1/dishes');
+      const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/dishes');
       const data = response.data.dishdata;
 
       dispatch(getDish(data));
@@ -33,7 +33,7 @@ const App = () => {
 
   const getUserProfileInfo = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/userProfile', {
+      const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/userProfile', {
         headers: {
           "Content-Type": 'application/json',
           Authorization: `Bearer ${authToken}`
