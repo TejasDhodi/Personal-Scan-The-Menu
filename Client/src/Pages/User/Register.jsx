@@ -47,7 +47,6 @@ const Register = () => {
                 setShowVerification(true);
                 alert('Otp Sent')
                 setLoading(false);
-                navigate('/signin')
             }
 
             setErrorMsg('')
