@@ -91,7 +91,8 @@ const Orders = () => {
       const data = response.data;
       setOccupiedPageCount(data?.result.pageCount);
       setOccupiedTable(data?.result.paginatedResult);
-      console.log(' occ res : ',data);
+      console.log(' occ res : ',data?.result.paginatedResult);
+      // console.log(' occ res 1 : ',data?.result);
     } catch (error) {
       console.log('Unable to get Delivered orders: ', error);
     }

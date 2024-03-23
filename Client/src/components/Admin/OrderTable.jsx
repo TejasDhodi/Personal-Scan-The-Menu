@@ -19,6 +19,7 @@ const OrderTable = ({ receivedOrder, changeStatus, deliveryLabel, deliveryIcon, 
             <th>Dish Price</th>
             <th>Total Amount</th>
             <th>Date and Time</th>
+            <th>Table No</th>
             <th>{deliveryLabel}</th>
           </tr>
         </thead>
@@ -55,6 +56,11 @@ const OrderTable = ({ receivedOrder, changeStatus, deliveryLabel, deliveryIcon, 
                       {
                         innerIndex === 0 &&
                         <td rowSpan={order.orderedDish.data.length}>{new Date(timestamp === 'createdAt' ? order.createdAt : order.updatedAt).toLocaleString()}</td>
+                      }
+
+                      {
+                        innerIndex === 0 &&
+                        <td className='markIcon' rowSpan={order.orderedDish.data.length}>{order.tableNo}</td>
                       }
 
                       {
