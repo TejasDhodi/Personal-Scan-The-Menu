@@ -9,7 +9,7 @@ const MenuManage = () => {
   // To Get the data of Dishes from Database
   const getDishData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/dishes');
+      const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/dishes');
 
       if (response.status === 200) {
         setDishes(response.data.dishdata);
@@ -22,7 +22,7 @@ const MenuManage = () => {
   // To Delete dish from database
   const handleDeleteDish = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/api/v1/dishes/delete/${id}`);
+      const response = await axios.delete(`https://personal-scan-the-menu.onrender.com/api/v1/dishes/delete/${id}`);
 
       if(response.status === 200) {
         alert('dish Deleted')

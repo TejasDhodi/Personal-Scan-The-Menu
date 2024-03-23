@@ -9,7 +9,7 @@ const AdminHomePage = () => {
 
   const getPaymentData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/paymentData');
+      const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/paymentData');
       const data = response.data?.paymentData;
 
       if (response.status === 200) {
@@ -22,7 +22,7 @@ const AdminHomePage = () => {
 
   const getAllUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/allUsers');
+      const response = await axios.get('https://personal-scan-the-menu.onrender.com/api/v1/allUsers');
 
       const data = response.data?.users
 
