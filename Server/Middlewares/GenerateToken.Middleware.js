@@ -21,4 +21,8 @@ const generateToken = async (req, res, next) => {
     }
 };
 
+
+module.exports = generateToken;
+
+
 module.exports = generateToken;
