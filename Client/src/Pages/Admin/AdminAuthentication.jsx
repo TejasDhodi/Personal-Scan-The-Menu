@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { adminAuthCredentials } from '../../Service/Admin'
+import { useDispatch } from 'react-redux'
+import { saveAdminAuthToken } from '../../Features/AuthSlice'
+
+
 const AdminAuthentication = () => {
 
     const [inputs, setInputs] = useState({
@@ -9,6 +14,7 @@ const AdminAuthentication = () => {
     })
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleInputs = (e) => {
         const { name, value } = e.target;
@@ -27,8 +33,10 @@ const AdminAuthentication = () => {
                 }
             });
             const data = response.data;
-            if (response.status === 201) {
+            console.log(data.adminAuthToken);
+            if (response.status === 200) {
                 alert('Success')
+                dispatch(saveAdminAuthToken(data.adminAuthToken))
                 navigate('/admin')
             }
             console.log(`inputs : ${data}`);
@@ -38,12 +46,26 @@ const AdminAuthentication = () => {
     }
 
     return (
-        <main>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name='userName' value={inputs.userName} onChange={handleInputs} />
-                <input type="password" name='password' value={inputs.password} onChange={handleInputs} />
-                <button type='submit'>Submit</button>
+        <main className='main formContainer'>
+            <form onSubmit={handleSubmit} className='form'>
+
+                {
+                    adminAuthCredentials.map((currElem, index) => {
+                        const { type, name, title } = currElem;
+                        return (
+                            <div className="inputs" key={index}>
+                                <label htmlFor={title}>{title}</label>
+                                <input type={type} name={name} id={title} value={inputs[name]} onChange={handleInputs} />
+                            </div>
+                        )
+                    })
+                }
+
+                <div className="controls">
+                    <button type='submit' className='btn'>Submit</button>
+                </div>
             </form>
+
         </main>
     )
 }

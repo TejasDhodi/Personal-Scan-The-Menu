@@ -83,3 +83,16 @@ export const dishCusines = [
         names: 'Chinese'
     }
 ]
+
+export const adminAuthCredentials = [
+    {
+        title: "Admin Username",
+        type: "text",
+        name: "userName"
+    },
+    {
+        title: "Password",
+        type: "password",
+        name: "password"
+    }
+]

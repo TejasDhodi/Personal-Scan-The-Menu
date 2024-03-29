@@ -7,6 +7,7 @@ import AdminLayout from '../Layouts/AdminLayout'
 import { Route, Routes } from 'react-router-dom'
 import Orders from '../Pages/Admin/Orders'
 import UpdateDish from '../Pages/Admin/UpdateDish'
+import AdminProtectedRoute from '../ProtectedRoutes/AdminProtectedRoute'
 
 const AdminRoute = () => {
     return (
@@ -14,11 +15,11 @@ const AdminRoute = () => {
         <AdminLayout>
             <Routes>
                 <Route path='/adminAuth' element={<AdminAuthentication />} />
-                <Route path='/admin' element={<AdminHomePage />} />
-                <Route path='/menuManage' element={<MenuManage />} />
-                <Route path='/createDish' element={<AddDish />} />
-                <Route path='/orders' element={<Orders />} />
-                <Route path='/update/:id' element={<UpdateDish />} />
+                <Route path='/admin' element={<AdminProtectedRoute Component={AdminHomePage } />} />
+                <Route path='/menuManage' element={<AdminProtectedRoute Component={MenuManage } />} />
+                <Route path='/createDish' element={<AdminProtectedRoute Component={AddDish } />} />
+                <Route path='/orders' element={<AdminProtectedRoute Component={Orders } />} />
+                <Route path='/update/:id' element={<AdminProtectedRoute Component={UpdateDish} />} />
             </Routes>
         </AdminLayout>
 
