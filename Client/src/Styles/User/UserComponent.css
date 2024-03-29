@@ -316,6 +316,19 @@
     text-decoration: line-through;
 }
 
+/* Loading State */
+
+.loading .loadingDishImage img{
+    background-color: #ccc;
+}
+
+.loading .loadingDishtHeader {
+    height: 1rem ;
+    width: 80%;
+    margin: 1rem auto;
+    background-color: #ccc;
+}
+
 @media screen and (max-width: 1024px) {  
     .hamburgerMenu {
         display: block;
