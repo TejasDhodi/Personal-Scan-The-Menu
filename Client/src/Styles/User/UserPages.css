@@ -374,9 +374,10 @@
 }
 
 .getProfileLinks .filterButton{
-    top: 10rem;
-    left: 1rem;
+    top: 1rem;
+    left: 0;
     z-index: 51;
+    width: 7rem;
 }
 
 .userNavLinks {
@@ -410,17 +411,15 @@
     transform: scale(1.03);
 }
 
-.profile {
-    display: flex;
-}
 
 .profileControls {
     width: 14vw;
 }
 
 .profileContents {
-    width: 86vw;
-    margin: 5rem 0;
+    margin: 7rem 0;
+    height: 100vh;
+    width: 100%;
 }
 
 /* WishLIst */
@@ -494,11 +493,24 @@
     .dishDetailsContainer .dishControls{
         text-align: center;
     }
+
+    /* Tables */
+    .tableDetails {
+        padding-top: 20%;
+    }
 }
 
 @media screen and (max-width: 481px) {
     .cartContainer {
         padding: 40% 0 0;
+    }
+
+    .tables {
+        padding: 2rem;
+    }
+
+    .tableDetails {
+        padding-top: 30%;
     }
 }
 
@@ -512,4 +524,5 @@
         font-size: 1.7rem;
         line-height: 1.5;
     }
+
 }

@@ -4,7 +4,7 @@ const LoadingComponent = () => {
     return (
         <div className='dish loading' >
             <div className="dishImage loadingDishImage">
-                <img src='' alt='' />
+                <img alt='' />
             </div>
             <div className="dishBody laodingDishBody">
                 <div className="dishtHeader loadingDishtHeader">
