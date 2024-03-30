@@ -28,45 +28,40 @@ const DishesComponent = ({ file, dishName, type, handleShowDescription, dishPric
 
 
   return (
-    <>
-      {
-        dishLoad ? <LoadingComponent /> :
 
-          <div className='dish' onDoubleClick={() => handleWishList(currElem)}>
-            <div className={popUp ? "likePart popLike" : "likePart"}>
-              <FaHeart />
-            </div>
-            <div className="dishImage">
-              <img src={file} alt={dishName} />
-              {handleShowDescription && <span className='dishDetals' onClick={() => handleShowDescription(dishName)}>< FaQuestion /></span>}
-              <span className={type === 'veg' ? 'category veg' : 'category nonveg'}><IoTriangleSharp /></span>
-            </div>
-            <div className="dishBody">
-              <div className="dishtHeader">
-                <h3>{dishName}</h3>
-              </div>
-              {
-                dishPrice &&
-                <div className="priceContainer">
-                  {
-                    !wishList ?
-                      <>
-                        <p>{dishPrice}Rs</p>
-                        <div className="controls">
-                          <button className='btn' onClick={() => dispatch(add(currElem))}>Add To Cart</button>
-                        </div>
-                      </> :
-                      <div className="controls expandControls">
-                        <button className='btn' onClick={() => dispatch(add(currElem))}>Add To Cart</button>
-                        <button className='btn' onClick={() => dispatch(removeFromWishList(currElem._id))}>Remove</button>
-                      </div>
-                  }
+    <div className='dish' onDoubleClick={() => handleWishList(currElem)}>
+      <div className={popUp ? "likePart popLike" : "likePart"}>
+        <FaHeart />
+      </div>
+      <div className="dishImage">
+        <img src={file} alt={dishName} />
+        {handleShowDescription && <span className='dishDetals' onClick={() => handleShowDescription(dishName)}>< FaQuestion /></span>}
+        <span className={type === 'veg' ? 'category veg' : 'category nonveg'}><IoTriangleSharp /></span>
+      </div>
+      <div className="dishBody">
+        <div className="dishtHeader">
+          <h3>{dishName}</h3>
+        </div>
+        {
+          dishPrice &&
+          <div className="priceContainer">
+            {
+              !wishList ?
+                <>
+                  <p>{dishPrice}Rs</p>
+                  <div className="controls">
+                    <button className='btn' onClick={() => dispatch(add(currElem))}>Add To Cart</button>
+                  </div>
+                </> :
+                <div className="controls expandControls">
+                  <button className='btn' onClick={() => dispatch(add(currElem))}>Add To Cart</button>
+                  <button className='btn' onClick={() => dispatch(removeFromWishList(currElem._id))}>Remove</button>
                 </div>
-              }
-            </div>
+            }
           </div>
-      }
-    </>
+        }
+      </div>
+    </div>
   );
 }
 

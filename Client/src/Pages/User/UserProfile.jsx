@@ -5,6 +5,7 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
 import DishesComponent from '../../components/User/DishesComponent';
 import { setProfileToggleTrue } from '../../Features/FilterSlice';
+import LoadingComponent from '../../components/User/LoadingComponent';
 
 const UserProfile = () => {
 
@@ -16,6 +17,7 @@ const UserProfile = () => {
 
     const wishList = useSelector(state => state.wishList.wishList);
     const isProfileToggle = useSelector(state => state.filters.profileToggle);
+    const dishLoad = useSelector(state => state.loading.dishLoading);
 
     const dispatch = useDispatch();
 
@@ -56,7 +58,7 @@ const UserProfile = () => {
                     <button className="filterButton" onClick={() => dispatch(setProfileToggleTrue())}>{isProfileToggle && '<-'}Filter {!isProfileToggle && '->'}</button>
                 </div>
                 <div className="profileControls">
-                    <ul className={isProfileToggle? "userNavLinks showUserNavlinks": "userNavLinks"} >
+                    <ul className={isProfileToggle ? "userNavLinks showUserNavlinks" : "userNavLinks"} >
                         <li className={content === 'wishList' ? 'linkIcons activePro' : 'linkIcons'} onClick={() => handleShowContents('wishList')}><FaHeart /> Wishlist</li>
                         <li className={content === 'recent' ? 'linkIcons activePro' : 'linkIcons'} onClick={() => handleShowContents('recent')}><FaClockRotateLeft /> Recent Orders</li>
                     </ul>
@@ -69,6 +71,7 @@ const UserProfile = () => {
                     content === 'wishList' &&
                     <div className="wishList allDishes">
                         {
+                            dishLoad ? <LoadingComponent size={3}/> :
                             wishList && wishList.map((list, index) => {
                                 const { _id, file, dishName, dishPrice, type } = list;
                                 return (
@@ -95,21 +98,22 @@ const UserProfile = () => {
                     content === 'recent' &&
                     <div className="recentOrders allDishes">
                         {
-                            recentOrders.map(order => (
-                                <React.Fragment key={order._id}>
-                                    {
-                                        order.orderedDish.data.map(dish => (
-                                            <DishesComponent
-                                                key={dish._id}
-                                                file={dish.file}
-                                                dishName={dish.dishName}
-                                                type={dish.type}
-                                                currElem={dish}
-                                            />
-                                        ))
-                                    }
-                                </React.Fragment>
-                            ))
+                            dishLoad ? <LoadingComponent size={3}/> :
+                                recentOrders.map(order => (
+                                    <React.Fragment key={order._id}>
+                                        {
+                                            order.orderedDish.data.map(dish => (
+                                                <DishesComponent
+                                                    key={dish._id}
+                                                    file={dish.file}
+                                                    dishName={dish.dishName}
+                                                    type={dish.type}
+                                                    currElem={dish}
+                                                />
+                                            ))
+                                        }
+                                    </React.Fragment>
+                                ))
                         }
                         {
                             recentOrders.length === 0 && <h2>You Have Not Places Any Order Yet</h2>

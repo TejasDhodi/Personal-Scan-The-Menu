@@ -4,11 +4,13 @@ import { useSelector } from 'react-redux'
 import AutoCarousel from '../../components/User/AutoCarousel';
 import { IoCaretForwardSharp } from "react-icons/io5";
 import { filteration } from '../../Service/User'
+import LoadingComponent from '../../components/User/LoadingComponent';
 
 const MenuPage = () => {
 
   const navigate = useNavigate();
   const dishes = useSelector(state => state.Dish.Dishes);
+  const dishLoad = useSelector(state => state.loading.dishLoading);
 
   const handleShowCategorizedMenu = (filterType, filterValue) => {
     navigate(`category/${filterType}/${filterValue}`)
@@ -21,34 +23,41 @@ const MenuPage = () => {
 
       {
         filteration.slice(0, 2).map((currElem, index) => {
-          const {title, type, name } = currElem;
+          const { title, type, name } = currElem;
           return (
             <section className="sliderContainer" key={index}>
               <div className="sliderHeader">
                 <h2>{title}</h2>
                 <span className='linkIcons' onClick={() => handleShowCategorizedMenu(type, name)}>Get <IoCaretForwardSharp /></span>
               </div>
-              <AutoCarousel dishes={dishes.filter(item => item.type == name)} />
+              {
+                dishLoad ? <LoadingComponent size={3}/> :
+                  <AutoCarousel dishes={dishes.filter(item => item.type == name)} />
+              }
             </section>
+            
           )
         })
       }
 
       {
-        filteration.slice(2,6).map((currElem, index) => {
-          const {title, type, name } = currElem;
+        filteration.slice(2, 6).map((currElem, index) => {
+          const { title, type, name } = currElem;
           return (
             <section className="sliderContainer" key={index}>
               <div className="sliderHeader">
                 <h2>{title}</h2>
                 <span className='linkIcons' onClick={() => handleShowCategorizedMenu(type, name)}>Get <IoCaretForwardSharp /></span>
               </div>
-              <AutoCarousel dishes={dishes.filter(item => item.cusine == name)} />
+              {
+                dishLoad ? <LoadingComponent size={3}/> :
+                  <AutoCarousel dishes={dishes.filter(item => item.cusine == name)} />
+              }
             </section>
           )
         })
       }
-      
+
     </main>
   )
 }

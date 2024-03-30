@@ -318,6 +318,12 @@
 
 /* Loading State */
 
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
 .loading .loadingDishImage{
     background-color: #ccc;
 }

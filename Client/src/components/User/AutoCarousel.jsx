@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,27 +6,27 @@ import DishesComponent from './DishesComponent';
 
 const AutoCarousel = ({ dishes }) => {
 
-    const [slidesToShow, setSlidesToShow] = useState(3); 
+    const [slidesToShow, setSlidesToShow] = useState(3);
+
 
     useEffect(() => {
+
         const handleResize = () => {
-            if (window.innerWidth < 480) { // Example breakpoint for smaller screens
+            if (window.innerWidth < 480) {
                 setSlidesToShow(1);
             } else {
-                setSlidesToShow(3); // Default value for larger screens
+                setSlidesToShow(3);
             }
         };
 
-        // Add event listener for window resize
         window.addEventListener('resize', handleResize);
 
-        // Call handleResize initially to set the initial state
         handleResize();
 
-        // Cleanup function
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+
     }, []);
 
     const settings = {

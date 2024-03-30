@@ -6,9 +6,11 @@ import DishesComponent from '../../components/User/DishesComponent'
 import BlurBackground from '../../components/User/BlurBackground'
 import { speciality, instructions } from '../../Service/User'
 import { useSelector } from 'react-redux'
+import LoadingComponent from '../../components/User/LoadingComponent'
 const HomePage = () => {
 
   const recommendations = useSelector(state => state.Dish.Dishes);
+  const dishLoad = useSelector(state => state.loading.dishLoading);
 
   return (
     <>
@@ -40,17 +42,19 @@ const HomePage = () => {
           <SectionTitle title={'Our Recommended Dishes'} />
           <div className='dishContainer'>
             {
-              recommendations && recommendations.slice(0, 4).map((currElem, index) => {
-                const { file, dishName, type } = currElem;
-                return (
-                  <DishesComponent
-                    file={file}
-                    dishName={dishName}
-                    type={type}
-                    key={index}
-                  />
-                )
-              })
+
+              dishLoad ? <LoadingComponent size={4}/> :
+                recommendations && recommendations.slice(0, 4).map((currElem, index) => {
+                  const { file, dishName, type } = currElem;
+                  return (
+                    <DishesComponent
+                      file={file}
+                      dishName={dishName}
+                      type={type}
+                      key={index}
+                    />
+                  )
+                })
             }
           </div>
         </section>
