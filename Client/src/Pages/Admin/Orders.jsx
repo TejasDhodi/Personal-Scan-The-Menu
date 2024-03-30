@@ -5,7 +5,11 @@ import '../../Styles/Admin/AdminPages.css'
 import { IoMdDoneAll } from "react-icons/io";
 import { MdRemoveDone } from "react-icons/md";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Orders = () => {
+
   const [pendingOrders, setPendingOrders] = useState([]);
   const [processingOrders, setProcessingOrders] = useState([]);
   const [deliveredOrders, setDeliveredOrders] = useState([]);
@@ -104,7 +108,10 @@ const Orders = () => {
     try {
       const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/processing/${id}`);
       const data = response.data;
-      alert(data.message)
+
+      toast.success(data.message, {
+        autoClose: 1500
+      })
 
       console.log('Updated Data : ', data);
       if (response.status === 200) {
@@ -124,7 +131,10 @@ const Orders = () => {
     try {
       const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/delivered/${id}`);
       const data = response.data;
-      alert(data.message)
+
+      toast.success(data.message, {
+        autoClose: 1500
+      })
 
       console.log('Updated Data : ', data);
       if (response.status === 200) {
@@ -145,7 +155,9 @@ const Orders = () => {
       const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/undoDelivered/${id}`);
       const data = response.data;
 
-      alert(data.message)
+      toast.success(data.message, {
+        autoClose: 1500
+      })
 
       console.log('Updated Data : ', data);
       if (response.status === 200) {
@@ -166,7 +178,9 @@ const Orders = () => {
       const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/markPaid/${id}`);
       const data = response.data;
 
-      alert(data.message)
+      toast.success(data.message, {
+        autoClose: 1500
+      })
 
       console.log('Updated Data : ', data);
       if (response.status === 200) {

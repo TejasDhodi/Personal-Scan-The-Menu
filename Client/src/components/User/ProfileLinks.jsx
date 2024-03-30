@@ -5,12 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { removeAuthToken } from '../../Features/AuthSlice';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ProfileLinks = ({ showProfile, setShowProfile }) => {
   const authToken = useSelector(state => state.authentication.data);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     setShowProfile(false)
+
+    toast.success('Logged Out', {
+      autoClose: 1500
+    })
+
     dispatch(removeAuthToken())
     localStorage.removeItem('authToken')
   }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { IoMdAdd } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAdminAuthToken } from '../../Features/AuthSlice';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminNavbar = () => {
 
@@ -14,7 +16,11 @@ const AdminNavbar = () => {
     const handleToggleNav = () => setToggleNav(!toggleNav);
 
     const handleAdminLogout = () => {
-        alert('loggedout')
+
+        toast.success('loggedout', {
+            autoClose: 1500
+        })
+        
         dispatch(removeAdminAuthToken())
     }
 

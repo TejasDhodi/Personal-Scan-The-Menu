@@ -5,6 +5,8 @@ import { adminAuthCredentials } from '../../Service/Admin'
 import { useDispatch } from 'react-redux'
 import { saveAdminAuthToken } from '../../Features/AuthSlice'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminAuthentication = () => {
 
@@ -35,13 +37,19 @@ const AdminAuthentication = () => {
             const data = response.data;
             console.log(data.adminAuthToken);
             if (response.status === 200) {
-                alert('Success')
+
+                toast.success('Authenticated As Admin', {
+                    autoClose: 1500
+                })
+
                 dispatch(saveAdminAuthToken(data.adminAuthToken))
                 navigate('/admin')
             }
             console.log(`inputs : ${data}`);
         } catch (error) {
-            alert('Catch Error')
+            toast.warning('Not Authorized', {
+                autoClose: 2000
+            })
         }
     }
 

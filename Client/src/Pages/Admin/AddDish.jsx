@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react'
 import axios from 'axios'
 import DishFormComponent from '../../components/Admin/DishFormComponent';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddDish = () => {
   const [inputs, setInputs] = useState({
     dishName: "",
@@ -53,7 +56,10 @@ const AddDish = () => {
       const data = response.data;
       console.log(data.addedDish.dishName);
       if (response.status === 201) {
-        alert("Created")
+
+        toast.success('Dish Added SuccessFully', {
+          autoClose: 1500
+        })
 
         setInputs({
           dishName: "",

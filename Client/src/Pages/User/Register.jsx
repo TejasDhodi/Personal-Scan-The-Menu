@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [registerInputs, setRegisterInputs] = useState({
@@ -45,7 +47,11 @@ const Register = () => {
 
             if (response.status === 200) {
                 setShowVerification(true);
-                alert('Otp Sent')
+
+                toast.success('Otp Sent', {
+                    autoClose: 1500
+                })
+
                 setLoading(false);
             }
 
@@ -71,7 +77,11 @@ const Register = () => {
 
 
             if (response.status === 200) {
-                alert('Email Verified');
+                
+                toast.success('Email Verified', {
+                    autoClose: 1500
+                })
+
                 setAuthToken(data?.token)
                 setShowInputs(true);
                 setShowVerification(false)
@@ -101,7 +111,11 @@ const Register = () => {
             });
 
             if (response.status === 201) {
-                alert('Registration SuccessFull')
+
+                toast.success('Registration SuccessFull', {
+                    autoClose: 1500
+                })
+
                 navigate('/signin')
                 setLoading(false)
             }

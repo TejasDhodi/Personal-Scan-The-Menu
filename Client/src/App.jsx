@@ -7,6 +7,7 @@ import { getDish } from './Features/DishesSlice'
 import { useLocation } from 'react-router-dom'
 import { saveUserProfileDetails } from './Features/AuthSlice'
 
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { hideDishLoad, showDishLoad } from './Features/LoadingSlice'
 
@@ -71,6 +72,7 @@ const App = () => {
       {/* Users Route */}
       <UserRoute />
 
+      <ToastContainer />
     </>
   )
 }

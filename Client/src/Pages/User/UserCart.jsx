@@ -6,6 +6,9 @@ import { remove, increase, decrease } from '../../Features/CartSlice'
 import axios from 'axios'
 import { tableNumberData } from '../../Service/User'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const UserCart = () => {
     const [cartData, setCartData] = useState([]);
     const [total, setTotal] = useState(0);
@@ -114,7 +117,11 @@ const UserCart = () => {
             console.log('Payment Data : ', datas);
 
             if (response.status === 201) {
-                alert('Data Added');
+
+                toast.success('Order Placed', {
+                    autoClose: 1500
+                })
+                
                 navigate(`/success?payment_id=${finalText}&payment=${datas._id}`)
             }
 

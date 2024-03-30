@@ -3,6 +3,9 @@ import DishFormComponent from '../../components/Admin/DishFormComponent'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const UpdateDish = () => {
     const [inputs, setInputs] = useState({
         dishName: "",
@@ -54,7 +57,11 @@ const UpdateDish = () => {
             });
 
             if(response.status === 200) {
-                alert('Updated');
+
+                toast.success('Updated Successfully', {
+                    autoClose: 1500
+                });
+                
                 navigate('/menuManage')
             }
         } catch (error) {

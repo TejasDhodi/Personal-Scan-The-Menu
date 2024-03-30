@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import AllMenuComponent from '../../components/Admin/AllMenuComponent'
 import axios from 'axios'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const MenuManage = () => {
 
   const [dishes, setDishes] = useState("");
@@ -25,7 +28,11 @@ const MenuManage = () => {
       const response = await axios.delete(`https://personal-scan-the-menu.onrender.com/api/v1/dishes/delete/${id}`);
 
       if (response.status === 200) {
-        alert('dish Deleted')
+
+        toast.success('Dish Deleted Successfully', {
+          autoClose: 1500
+        })
+        
         getDishData();
       }
     } catch (error) {

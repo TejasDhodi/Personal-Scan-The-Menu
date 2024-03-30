@@ -5,6 +5,9 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { saveAuthToken } from '../../Features/AuthSlice';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Login = () => {
 
   const [loginInputs, setLoginInputs] = useState({
@@ -44,7 +47,11 @@ const Login = () => {
 
       if (response.status === 200) {
         setShowVerification(true);
-        alert('Otp Sent')
+
+        toast.success('Otp Sent', {
+          autoClose: 1500
+        })
+        
         setLoading(false)
       }
       setErrorMsg('');
@@ -68,7 +75,11 @@ const Login = () => {
       const data = response.data;
 
       if (response.status === 200) {
-        alert('Email Verified');
+
+        toast.success('Email Verified', {
+          autoClose: 1500
+        })
+
         setAuthToken(data?.token)
         setShowInputs(true);
         setShowVerification(false)
@@ -100,7 +111,11 @@ const Login = () => {
       console.log('Auth Token : ', data?.token);
 
       if (response.status === 200) {
-        alert('Login SuccessFull');
+
+        toast.success('Login Success', {
+          autoClose: 1500
+        })
+
         dispatch(saveAuthToken(data?.token))
         setLoading(true)
         navigate('/menu')
@@ -140,7 +155,7 @@ const Login = () => {
                 showVerification &&
                 <div className="emailVal otpVal">
                   <input type="text" name="enteredOtp" id="enteredOtp" value={loginInputs.enteredOtp} onChange={handleLoginInputs} autoFocus />
-                  <button onClick={handleVerifyOtp}>{loading? '...' : 'Verify'}</button>
+                  <button onClick={handleVerifyOtp}>{loading ? '...' : 'Verify'}</button>
                 </div>
               }
             </div>
@@ -156,7 +171,7 @@ const Login = () => {
           </div>
 
           <div className="controls">
-            <button type='submit' className='btn'>{loading? '...' : 'Login'}</button>
+            <button type='submit' className='btn'>{loading ? '...' : 'Login'}</button>
           </div>
 
           <div className="askAccount">
