@@ -19,7 +19,7 @@ const UserNavbar = () => {
   const handleToggleNav = () => setToggleNav(!toggleNav);
 
   useEffect(() => {
-    const path = location.pathname.includes('/admin') || location.pathname.includes('/adminAuth') || location.pathname.includes('/menuManage') || location.pathname.includes('/createDish') || location.pathname.includes('/orders');
+    const path = location.pathname.includes('/admin') || location.pathname.includes('/adminAuth') || location.pathname.includes('/menuManage') || location.pathname.includes('/createDish') || location.pathname.includes('/orders') || location.pathname.includes('/update');
     setIsAdmin(path)
   }, [location.pathname])
 

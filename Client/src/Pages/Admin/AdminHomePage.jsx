@@ -30,7 +30,7 @@ const AdminHomePage = () => {
         setUsers(data.length)
       }
     } catch (error) {
-      
+
     }
   }
 
@@ -54,22 +54,27 @@ const AdminHomePage = () => {
   }, [paymentData])
 
   return (
-    <section className="dashboard">
+    <main className='main'>
 
-      <div className="widget">
-        <h2>Total Orders</h2>
-        <p>{paymentData?.length}</p>
-      </div>
-      <div className="widget">
-        <h2>Revenue</h2>
-        <p>${totalRevenue.toFixed(2)}</p>
-      </div>
-      <div className="widget">
-        <h2>Customes</h2>
-        <p>{users}</p>
-      </div>
+      <section className="dashboard">
 
-    </section>
+        <div className="widget">
+          <h2>Total Orders</h2>
+          <p>{paymentData?.length}</p>
+        </div>
+
+        <div className="widget">
+          <h2>Revenue</h2>
+          <p>${totalRevenue.toFixed(2)}</p>
+        </div>
+        
+        <div className="widget">
+          <h2>Customes</h2>
+          <p>{users}</p>
+        </div>
+
+      </section>
+    </main>
   )
 }
 

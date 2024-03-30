@@ -1,5 +1,42 @@
+/* Admin Hero Page */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    height: 100vh;
+    width: 100%;
+}
+
+.widget h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.widget p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.widget {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    height: 15rem;
+    width: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* Orders */
+
 .orders {
-    margin: 12% 0 3%;
+    padding: 12% 0 3%;
 }
 
 .chooseOrders {
@@ -22,4 +59,40 @@
 
 .highlightBtn {
     background: #EA6D27;
+}
+
+@media screen and (max-width: 840px) {
+    .orders {
+        padding: 15% 0 3%;
+    }
+}
+
+
+@media  (max-width: 840px) and (min-width: 300px) {
+
+    .dashboard {
+        flex-wrap: wrap;
+        padding-top: 35%;
+    }
+    
+    .widget {
+        height: 18rem;
+        width: 22rem;
+    }
+
+    .orderBtn {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .orders {
+        padding: 17% 0 3%;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .orders {
+        padding: 23% 0 3%;
+    }
 }

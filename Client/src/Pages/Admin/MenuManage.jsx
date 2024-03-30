@@ -24,7 +24,7 @@ const MenuManage = () => {
     try {
       const response = await axios.delete(`https://personal-scan-the-menu.onrender.com/api/v1/dishes/delete/${id}`);
 
-      if(response.status === 200) {
+      if (response.status === 200) {
         alert('dish Deleted')
         getDishData();
       }
@@ -39,9 +39,9 @@ const MenuManage = () => {
 
   return (
     <div>
-      <AllMenuComponent 
-      dishes={dishes} 
-      handleDeleteDish={handleDeleteDish}
+      <AllMenuComponent
+        dishes={dishes}
+        handleDeleteDish={handleDeleteDish}
       />
     </div>
   )

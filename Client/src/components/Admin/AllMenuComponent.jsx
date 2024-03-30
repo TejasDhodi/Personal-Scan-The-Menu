@@ -18,7 +18,7 @@ const AllMenuComponent = ({dishes, handleDeleteDish}) => {
             const {dishName, dishPrice, file, _id, dishMacros, dishDescription, dishIngredients, type, category} = currElem;
             return (
               <ul className='menuItems' key={index}>
-                <li className="menuList"><img src={file} alt={dishName} /></li>
+                <li className="menuList"><img src={file} alt={dishName} className='menuListImg'/></li>
                 <li className="menuList">{dishName}</li>
                 <li className="menuList">{dishPrice}</li>
                 <li className="menuList" onClick={() => navigateToUpdate(_id)}>Edit</li>
