@@ -3,7 +3,7 @@ const paymentModel = require('../../Model/Payment.Model');
 const handlePlaceOrder = async (req, res) => {
 
     try {
-        const { user, orderedDish, amount, delivered, pending, processing, order_id, tableNo, isTableOccupied } = req.body;
+        const { user, orderedDish, amount, delivered, pending, processing, order_id, tableNo, isTableOccupied, sentToDelivery } = req.body;
 
         const orderData = await paymentModel.create({
             order_id,
