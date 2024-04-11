@@ -3,10 +3,10 @@ import HeroComponent from '../../components/User/HeroComponent'
 import SpecialityComponent from '../../components/User/SpecialityComponent'
 import SectionTitle from '../../components/User/SectionTitle'
 import DishesComponent from '../../components/User/DishesComponent'
-import BlurBackground from '../../components/User/BlurBackground'
 import { speciality, instructions } from '../../Service/User'
 import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/User/LoadingComponent'
+
 const HomePage = () => {
 
   const recommendations = useSelector(state => state.Dish.Dishes);

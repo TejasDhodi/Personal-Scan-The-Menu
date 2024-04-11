@@ -59,45 +59,6 @@ const UserCart = () => {
         navigate(-1);
     }
 
-    // const handleCheckout = async () => {
-    //     try {
-    //         const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/checkout', {
-    //             user: userName, orderedDish: data, amount: total, orderDelivered
-    //         })
-
-    //         const paymentData = response.data?.orderData;
-    //         console.log('Payment Data : ', paymentData);
-
-    //         var options = {
-    //             "key": import.meta.env.VITE_SECRET_KEY_ID,
-    //             "amount": paymentData.amount,
-    //             "currency": "INR",
-    //             "name": "Scan The Menu",
-    //             "description": "Test Transaction",
-    //             "image": "https://example.com/your_logo",
-    //             "order_id": paymentData.order_id,
-    //             "callback_url": "https://personal-scan-the-menu.onrender.com/api/v1/checkout/verifyPayment",
-    //             "prefill": {
-    //                 "name": "Gaurav Kumar",
-    //                 "email": "gaurav.kumar@example.com",
-    //                 "contact": "9000090000"
-    //             },
-    //             "notes": {
-    //                 "address": "Razorpay Corporate Office"
-    //             },
-    //             "theme": {
-    //                 "color": "#EA6D27"
-    //             }
-    //         };
-
-    //         var razor = new Razorpay(options);
-    //         razor.open();
-
-    //     } catch (error) {
-    //         console.log('Unable to proceed for Payments : ', error);
-    //     }
-    // }
-
     const randomText = Math.floor(Math.random() * 10000) + 1;
 
     const finalText = userName + randomText
@@ -121,7 +82,7 @@ const UserCart = () => {
                 toast.success('Order Placed', {
                     autoClose: 1500
                 })
-                
+
                 navigate(`/success?payment_id=${finalText}&payment=${datas._id}`)
             }
 
@@ -166,6 +127,7 @@ const UserCart = () => {
 
         setLeftTableNo(leftTables)
     }, [occupiedTable])
+
     return (
         <main className='cartContainer main'>
             <div className="cartBack" onClick={handleGoBack}>
@@ -242,6 +204,10 @@ const UserCart = () => {
                                 </th>
                                 <th>Total Items : <span>{totalQuantity}</span></th>
                                 <th>Total Amount : <span>{total}Rs</span></th>
+                                <th><select name="paymentMode" id="paymentMode">
+                                    <option value="COD">COD</option>
+                                    <option value="Online">Online</option>
+                                </select></th>
                                 <th><button type='button' className='btn' onClick={handlePlaceOrder}>Checkout</button></th>
                             </tr>
                         </tfoot>

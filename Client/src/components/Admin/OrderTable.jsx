@@ -20,6 +20,7 @@ const OrderTable = ({ receivedOrder, changeStatus, deliveryLabel, deliveryIcon, 
             <th>Total Amount</th>
             <th>Date and Time</th>
             <th>Table No</th>
+            <th>Payment Done</th>
             <th>{deliveryLabel}</th>
           </tr>
         </thead>
@@ -61,6 +62,11 @@ const OrderTable = ({ receivedOrder, changeStatus, deliveryLabel, deliveryIcon, 
                       {
                         innerIndex === 0 &&
                         <td className='markIcon' rowSpan={order.orderedDish.data.length}>{order.tableNo}</td>
+                      }
+
+                      {
+                        innerIndex === 0 &&
+                        <td className='markIcon' rowSpan={order.orderedDish.data.length}>{order.isPaymentDone? 'Yes': 'No'}</td>
                       }
 
                       {
