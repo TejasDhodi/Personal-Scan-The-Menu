@@ -4,6 +4,6 @@ const router = express.Router();
 const adminAuthController = require('../../Controller/Admin/AdminAuth.controller');
 const generateToken = require('../../Middlewares/GenerateToken.Middleware');
 
-router.route("/adminAuth").post(generateToken, adminAuthController);
+router.post("/adminAuth", generateToken, adminAuthController);
 
 module.exports = router;

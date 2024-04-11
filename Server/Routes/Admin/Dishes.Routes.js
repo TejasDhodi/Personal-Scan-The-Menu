@@ -3,12 +3,12 @@ const router = express.Router();
 const {createDish, getDishData, updateDish, deleteDish, serachDish, typesOfDishes, getSingleDishData} = require('../../Controller/Admin/Dishes.Controller')
 const upload = require('../../Middlewares/Multer.Middleware');
 
-router.route('/dishes').get(getDishData);
-router.route('/dishes/:id').get(getSingleDishData);
-router.route('/dishes/search').get(serachDish);
-router.route('/dishes/filter/check').post(typesOfDishes);
-router.route('/createDish').post(upload, createDish);
-router.route('/dishes/update/:id').put(upload, updateDish)
-router.route('/dishes/delete/:id').delete(deleteDish);
+router.get('/dishes', getDishData);
+router.get('/dishes/:id', getSingleDishData);
+router.get('/dishes/search', serachDish);
+router.post('/dishes/filter/check', typesOfDishes);
+router.post('/createDish', upload, createDish);
+router.put('/dishes/update/:id', upload, updateDish)
+router.delete('/dishes/delete/:id', deleteDish);
 
 module.exports = router;
