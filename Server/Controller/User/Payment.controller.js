@@ -13,7 +13,6 @@ const handlePlaceOrder = async (req, res) => {
             pending: true,
             processing,
             delivered,
-            isPaymentDone,
             tableNo,
             isTableOccupied: true
         })
