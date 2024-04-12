@@ -114,6 +114,7 @@ const Orders = () => {
       setOccupiedPageCount(data?.result.pageCount);
       setOccupiedTable(data?.result.paginatedResult);
       console.log(' occupied res : ', data?.result.paginatedResult);
+      // alert('New Order Arrived')
     } catch (error) {
       console.log('Unable to get Delivered orders: ', error);
     }
@@ -252,6 +253,7 @@ const Orders = () => {
     handleGetSentToDeliveryOrders();
 
   }, [showTable])
+
 
   return (
     <main className='main'>

@@ -445,6 +445,11 @@
     #Scan .specialityImg {
         display: block;
     }
+
+    /* Search Filter */
+    .searChFilter {
+        margin: 7rem 0 0;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -455,5 +460,9 @@
     #Scan .specialityDescription p {
         font-size: 0.7rem;
         gap: 0.5rem;
+    }
+
+    .filterButton {
+        padding: 0.5rem 1.5rem;
     }
 }

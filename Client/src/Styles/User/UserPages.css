@@ -98,7 +98,7 @@
     box-shadow: 0 0 15px;
     width: 38rem;
     padding: 1rem;
-    border-radius: 1rem 
+    border-radius: 1rem
 }
 
 .login {
@@ -125,11 +125,12 @@
     justify-content: center;
 }
 
-.authHeader svg, .authHeader h3 {
-   font-size: 2rem;
+.authHeader svg,
+.authHeader h3 {
+    font-size: 2rem;
 }
 
-.inputFields .inputs .emailVal  {
+.inputFields .inputs .emailVal {
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -257,6 +258,10 @@
     text-decoration: underline #EA6D27;
 }
 
+.cartTable {
+    overflow: auto;
+}
+
 .cartData {
     width: 100%;
     text-align: center;
@@ -311,6 +316,10 @@
     margin: 0 10px;
 }
 
+.cartFooter>tr th:first-child() {
+    display: flex;
+}
+
 /* Dish Details */
 .dishDetailsContainer {
     padding: 10% 8% 2%;
@@ -346,7 +355,9 @@
     height: 100vh;
 }
 
-.successMsg, .orderIds, .orderData {
+.successMsg,
+.orderIds,
+.orderData {
     margin: 1.5rem;
 }
 
@@ -360,6 +371,7 @@
 .orderData thead {
     border-bottom: 1px solid;
 }
+
 .orderData tr td {
     padding: 1rem;
 }
@@ -373,7 +385,7 @@
     position: relative;
 }
 
-.getProfileLinks .filterButton{
+.getProfileLinks .filterButton {
     top: 1rem;
     left: 0;
     z-index: 51;
@@ -387,7 +399,7 @@
     position: fixed;
     top: 0;
     left: 100%;
-    display: flex;  
+    display: flex;
     flex-direction: column;
     padding: 15rem 1rem 0;
     gap: 1.5rem;
@@ -423,7 +435,8 @@
 }
 
 /* WishLIst */
-.wishList .dish, .recentOrders .dish {
+.wishList .dish,
+.recentOrders .dish {
     margin: 1rem 0;
 }
 
@@ -480,6 +493,7 @@
     .menuContainer {
         padding: 25% 2% 2%;
     }
+
     .sliderHeader h2 {
         text-align: left;
         font-size: 2.5rem;
@@ -490,13 +504,36 @@
         flex-direction: column;
     }
 
-    .dishDetailsContainer .dishControls{
+    .dishDetailsContainer .dishControls {
         text-align: center;
     }
 
     /* Tables */
     .tableDetails {
         padding-top: 20%;
+    }
+
+    /* Success Page */
+
+    .successMsg h2 {
+        font-size: 2rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .orderSuccess .controls .btn {
+        width: 45%;
+    }
+
+    /* Loading State  */
+    #Recommendations .dishContainer .loadingContainer,
+    .recentOrders .loadingContainer,
+    .wishList .loadingContainer {
+        flex-wrap: wrap;
+    }
+
+    .loadingContainer .loading {
+        width: 41vw;
     }
 }
 

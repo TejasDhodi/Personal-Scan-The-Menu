@@ -15,6 +15,10 @@ body {
   position: relative;
 }
 
+.disabledOption {
+  pointer-events: none;
+}
+
 table {
   width: 100%;
     text-align: left;

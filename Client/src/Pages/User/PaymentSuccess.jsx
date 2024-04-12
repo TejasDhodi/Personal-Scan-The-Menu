@@ -63,8 +63,7 @@ const PaymentSuccess = () => {
 
     doc.text(`Order Details :-`, 10, 50);
 
-    // const columns = ['Index', 'Dish Name', 'Dish Price', 'Total Price', 'Quantity', 'Cuisine', 'Category'];
-    const columns = ['Index', 'Dish Name', 'Cuisine', 'Category', 'Dish Price', 'Quantity', 'Total Price' ];
+    const columns = ['Index', 'Dish Name', 'Cuisine', 'Category', 'Dish Price', 'Quantity', 'Total Price'];
     const rows = paymentData?.orderedDish.data.map((row, index) => [index + 1, row.dishName, row.cusine, row.category, row.dishPrice, row.quantity, row.dishPrice * row.quantity]);
 
     doc.autoTable({
@@ -100,48 +99,8 @@ const PaymentSuccess = () => {
 
           <div className="orderIds">
             <h3>Your Order Id : {paymentData?.order_id}</h3>
-            {/* <h3>Your Payment Id : {paymentData[0]?.razorpay_payment_id}</h3> */}
           </div>
 
-          <table className='orderData'>
-            <thead>
-              <tr>
-                <td>Index</td>
-                <td>Dish Name</td>
-                <td>Cusine</td>
-                <td>Category</td>
-                <td>Dish Price</td>
-                <td>Quantity</td>
-                <td>Total Price</td>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                paymentData?.orderedDish?.data?.map((currElem, index) => {
-                  const { category, cusine, dishName, dishPrice, quantity } = currElem;
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{dishName}</td>
-                      <td>{cusine}</td>
-                      <td>{category}</td>
-                      <td>{dishPrice}</td>
-                      <td>{quantity}</td>
-                      <td>{dishPrice * quantity}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-            <tfoot>
-              <tr>
-                <th colSpan={5}>&nbsp;</th>
-                <th>Total Items : <span>{totalQuantity}</span></th>
-                <th>Total Amount : <span>{total}Rs</span></th>
-                {/* <th><button type='button' className='btn' onClick={() => handleCheckout()}>Checkout</button></th> */}
-              </tr>
-            </tfoot>
-          </table>
           <div className="controls">
             <button className='btn' onClick={handleDownloadPDF}>Download Receipt</button>
           </div>

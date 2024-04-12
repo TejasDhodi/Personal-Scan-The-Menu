@@ -13,13 +13,13 @@ const UserCart = () => {
     const [cartData, setCartData] = useState([]);
     const [total, setTotal] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
-    const [orderDelivered, setOrderDelivered] = useState(false);
-    const [isTableOccupied, setIsTableOccupied] = useState(false);
     const [tableNumber, setTableNumber] = useState(null);
 
     const [occupiedTable, setOccupiedTable] = useState([]);
     const [occupiedTableNo, setOccupiedtableNo] = useState([]);
     const [leftTableNo, setLeftTableNo] = useState([]);
+
+    const [showOnlinePayment, setShowOnlinePayment] = useState(false);
 
     const dispatch = useDispatch();
     const data = useSelector(state => state.cart);
@@ -27,6 +27,13 @@ const UserCart = () => {
     const cartLength = data.data.length;
     const navigate = useNavigate();
 
+    const selectPaymentMode = (e) => {
+        if (e.target.value === 'Online') {
+            setShowOnlinePayment(true);
+        } else {
+            setShowOnlinePayment(false)
+        }
+    }
     const handleRemoveItem = (id) => {
         dispatch(remove(id));
     };
@@ -63,6 +70,51 @@ const UserCart = () => {
 
     const finalText = userName + randomText
 
+    const handlePlaceOrderOnline = async () => {
+        try {
+            const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/placeOrder/online', {
+                user: userName,
+                orderedDish: data,
+                amount: total,
+                tableNo: tableNumber,
+            })
+
+            const paymentData = response.data?.orderData;
+            console.log('Payment Data : ', paymentData);
+
+            var options = {
+                "key": import.meta.env.VITE_SECRET_KEY_ID,
+                "amount": paymentData.amount,
+                "currency": "INR",
+                "name": "Scan The Menu",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": paymentData.order_id,
+                "callback_url": "https://personal-scan-the-menu.onrender.com/api/v1/placeOrder/online/verify",
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9000090000"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#EA6D27"
+                }
+            };
+
+            var razor = new Razorpay(options);
+            razor.open();
+
+        } catch (error) {
+            let warn = (error.response.data.error).split(':');
+            toast.warning(warn[2], {
+                autoClose: 1500
+            })
+            console.log( 'Unable to place order online : ', error);
+        }
+    }
     const handlePlaceOrder = async () => {
         try {
             const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/placeOrder', {
@@ -86,8 +138,13 @@ const UserCart = () => {
                 navigate(`/success?payment_id=${finalText}&payment=${datas._id}`)
             }
 
+
         } catch (error) {
-            console.log('Unable to place order', error);
+            let warn = (error.response.data.error).split(':');
+            toast.warning(warn[2], {
+                autoClose: 1500
+            })
+            console.log( 'Unable to place order : ', error);
         }
     }
 
@@ -136,6 +193,7 @@ const UserCart = () => {
             <div className="cartDetails">
                 <h3>Shopping Cart</h3>
             </div>
+            <div className="cartTable">
             {
                 cartLength === 0 ? <h2>Your Cart Is Empty</h2> :
                     <table className='cartData'>
@@ -185,13 +243,11 @@ const UserCart = () => {
 
                         </tbody>
 
-                        <tfoot>
+                        <tfoot className='cartFooter'>
                             <tr>
-                                <th colSpan={2}>&nbsp;</th>
-                                <th>
-                                    <label htmlFor="tableNo">Select Table No</label>
+                                <th colSpan={2}>
                                     <select name="tableNumber" id="tableNo" onChange={(e) => setTableNumber(e.target.value)}>
-                                        <option value="" disabled>Select Table Number</option>
+                                        <option value="#" className='disabledOption'>Select Table Number</option>
 
                                         {
                                             leftTableNo.map((tableNo, index) => (
@@ -204,15 +260,22 @@ const UserCart = () => {
                                 </th>
                                 <th>Total Items : <span>{totalQuantity}</span></th>
                                 <th>Total Amount : <span>{total}Rs</span></th>
-                                <th><select name="paymentMode" id="paymentMode">
+                                <th><select name="paymentMode" id="paymentMode" onChange={selectPaymentMode}>
+                                    <option value="#" className='disabledOption'>Select Payment Method</option>
                                     <option value="COD">COD</option>
                                     <option value="Online">Online</option>
                                 </select></th>
-                                <th><button type='button' className='btn' onClick={handlePlaceOrder}>Checkout</button></th>
+                                {
+
+                                    showOnlinePayment ? <th><button type='button' className='btn' onClick={handlePlaceOrderOnline}>Online</button></th>
+                                        : <th><button type='button' className='btn' onClick={handlePlaceOrder}>Checkout</button></th>
+                                }
+
                             </tr>
                         </tfoot>
                     </table>
             }
+            </div>
         </main>
     )
 }
