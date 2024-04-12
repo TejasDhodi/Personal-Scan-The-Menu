@@ -14,6 +14,18 @@ const paymentSchema = new Schema({
     order_id: {
         type: String
     },
+    razorpay_payment_id: {
+        type: String,
+        default: null
+    },
+    razorpay_order_id: {
+        type: String,
+        default: null
+    },
+    razorpay_signature: {
+        type: String,
+        default: null
+    },
     tableNo: {
         type: Number,
         required: true,
