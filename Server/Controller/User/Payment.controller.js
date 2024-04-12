@@ -66,10 +66,10 @@ const handleVerifyOnlinePayment = async (req, res) => {
                 isTableOccupied: true,
                 isPaymentDone: true
             })
-            return res.redirect(`http://localhost:5173/success?payment_id=${razorpay_payment_id}&payment=${updatedData._id}`);
+            return res.redirect(`https://personal-scan-the-menu.vercel.app/success?payment_id=${razorpay_payment_id}&payment=${updatedData._id}`);
         }
 
-        return res.redirect('http://localhost:5173/fail')
+        return res.redirect('https://personal-scan-the-menu.vercel.app/fail')
 
     } catch (error) {
         console.log('Unable to Verify Payment data form controller : ', error);
