@@ -24,6 +24,8 @@ const UserCart = () => {
     const dispatch = useDispatch();
     const data = useSelector(state => state.cart);
     const userName = useSelector(state => state.authentication.userProfile?.fullName)
+    const userEmail = useSelector(state => state.authentication.userProfile?.email)
+    const userPhone = useSelector(state => state.authentication.userProfile?.phone)
     const cartLength = data.data.length;
     const navigate = useNavigate();
 
@@ -88,16 +90,16 @@ const UserCart = () => {
                 "currency": "INR",
                 "name": "Scan The Menu",
                 "description": "Test Transaction",
-                "image": "https://example.com/your_logo",
+                "image": "/Images/Nav-Brand.jpeg",
                 "order_id": paymentData.order_id,
                 "callback_url": "https://personal-scan-the-menu.onrender.com/api/v1/placeOrder/online/verify",
                 "prefill": {
-                    "name": "Gaurav Kumar",
-                    "email": "gaurav.kumar@example.com",
-                    "contact": "9000090000"
+                    "name": userName,
+                    "email": userEmail,
+                    "contact": `+91 ${userPhone}`
                 },
                 "notes": {
-                    "address": "Razorpay Corporate Office"
+                    "address": "#"
                 },
                 "theme": {
                     "color": "#EA6D27"
