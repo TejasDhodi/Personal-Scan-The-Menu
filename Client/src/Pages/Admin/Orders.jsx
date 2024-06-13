@@ -10,121 +10,81 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Orders = () => {
 
-  const [pendingOrders, setPendingOrders] = useState([]);
-  const [processingOrders, setProcessingOrders] = useState([]);
-  const [sentToDeliverydOrders, setSentToDeliverydOrders] = useState([]);
-  const [deliveredOrders, setDeliveredOrders] = useState([]);
-  const [occupiedTable, setOccupiedTable] = useState([]);
+  const [allOrders, setAllOrders] = useState({
+    pending: [],
+    processing: [],
+    sentToDelivery: [],
+    delivered: [],
+    unoccupy: [], //occupiedTable
+
+  })
   const [showTable, setShowTable] = useState('pending');
 
   const [pageLimit, setPageLimit] = useState(5);
-  const [pendingPageCount, setPendingPageCount] = useState(1);
-  const [sentToDeliveryPageCount, setSentToDeliveryPageCount] = useState(1);
-  const [deliveredPageCount, setDeliveredPageCount] = useState(1);
-  const [processingPageCount, setProcessingPageCount] = useState(1);
-  const [occupiedPageCount, setOccupiedPageCount] = useState(1);
 
-  const pendingCurrentPage = useRef();
-  const processingCurrentPage = useRef();
-  const sentDeliveryCurrentPage = useRef();
-  const deliveredCurrentPage = useRef();
-  const occupiedCurrentPage = useRef();
+  const [pageCount, setPageCount] = useState({
+    pending: 1,
+    sentToDelivery: 1,
+    delivered: 1,
+    processing: 1,
+    unoccupy: 1, //occupiedPageCount
+  });
+
+  const currentPage = useRef(1);
+
 
   const handlePageClick = (e) => {
     try {
       console.log(e.selected + 1);
-      pendingCurrentPage.current = e.selected + 1
-      processingCurrentPage.current = e.selected + 1
-      sentDeliveryCurrentPage.current = e.selected + 1
-      deliveredCurrentPage.current = e.selected + 1
-      occupiedCurrentPage.current = e.selected + 1
+      currentPage.current = e.selected + 1
 
-      if (showTable === 'pending') {
-        handleGetPendingOrders();
-      } else if (showTable === 'processing') { // Fetch processing orders
-        handleGetProcessingOrders();
-      } else if (showTable === 'delivered') {
-        handleGetDeliveredOrders();
-      } else if (showTable === 'sentToDelivery') {
-        handleGetSentToDeliveryOrders();
-      } else {
-        handleGetOccupiedTable();
-      }
+      handleGetAllOrders(showTable)
 
     } catch (error) {
       console.log('handlePageClick : ', error);
     }
   }
 
+
+  // -------------------- Utility function to get all orders ----------------------
+  const handleGetAllOrders = async (type) => { // here the type refers to the order type and page count type
+    try {
+
+      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/${type === 'unoccupy' ? 'paid' : type}?page=${currentPage.current}&limit=${pageLimit}`);
+      const data = response.data;
+
+      setPageCount(prevCount => ({ ...prevCount, [type]: data?.result.pageCount }))
+      setAllOrders(prevOrders => ({ ...prevOrders, [type]: data?.result.paginatedResult }))
+
+      console.log(`${type} order data`, data);
+
+    } catch (error) {
+      console.log(`Unable to get ${type} orders : `, error);
+    }
+  }
+
   // To Get Pending Orders
-  const handleGetPendingOrders = async () => {
-    try {
-      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/pending?page=${pendingCurrentPage.current}&limit=${pageLimit}`);
-      const data = response.data;
-      setPendingPageCount(data?.result.pageCount);
-      setPendingOrders(data?.result.paginatedResult);
-      console.log('pend pag res', data);
-    } catch (error) {
-      console.log('Unable to get Pending orders : ', error);
-    }
-  };
+  // const handleGetPendingOrders = async () => {
+  //   try {
+  //     const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/pending?page=${currentPage.current}&limit=${pageLimit}`);
+  //     const data = response.data;
 
-  // To Get Processsing Orders
-  const handleGetProcessingOrders = async () => {
-    try {
-      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/processing?page=${processingCurrentPage.current}&limit=${pageLimit}`);
-      const data = response.data;
-      setProcessingPageCount(data?.result.pageCount);
-      setProcessingOrders(data?.result.paginatedResult);
-    } catch (error) {
-      console.log('Unable to get Delivered orders: ', error);
-    }
-  }
+  //     setPageCount(prevCount => ({ ...prevCount, pending: data?.result.pageCount }))
+  //     setAllOrders(prevOrders => ({ ...prevOrders, pending: data?.result.paginatedResult }))
 
-  // To Get Sent to Delivery Orders
-  const handleGetSentToDeliveryOrders = async () => {
-    try {
-      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/sentToDelivery?page=${sentDeliveryCurrentPage.current}&limit=${pageLimit}`);
-      const data = response.data;
-      setSentToDeliveryPageCount(data?.result.pageCount);
-      setSentToDeliverydOrders(data?.result.paginatedResult);
-      console.log('Sent to delivery page count', data);
-    } catch (error) {
-      console.log('Unable to get Sent to delivery orders: ', error);
-    }
-  };
-
-  // To Get Delivered Orders
-  const handleGetDeliveredOrders = async () => {
-    try {
-      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/delivered?page=${deliveredCurrentPage.current}&limit=${pageLimit}`);
-      const data = response.data;
-      setDeliveredPageCount(data?.result.pageCount);
-      setDeliveredOrders(data?.result.paginatedResult);
-    } catch (error) {
-      console.log('Unable to get Delivered orders: ', error);
-    }
-  };
-
-  // To Get Occupied Tables
-  const handleGetOccupiedTable = async () => {
-    try {
-      const response = await axios.get(`https://personal-scan-the-menu.onrender.com/api/v1/orders/paid?page=${occupiedCurrentPage.current}&limit=${pageLimit}`);
-      const data = response.data;
-      setOccupiedPageCount(data?.result.pageCount);
-      setOccupiedTable(data?.result.paginatedResult);
-      console.log(' occupied res : ', data?.result.paginatedResult);
-      // alert('New Order Arrived')
-    } catch (error) {
-      console.log('Unable to get Delivered orders: ', error);
-    }
-  }
+  //     console.log('pend pag res', data);
+  //   } catch (error) {
+  //     console.log('Unable to get Pending orders : ', error);
+  //   }
+  // };
 
 
-  // To Update Processing status false
-  const handleProcessingUpdateStatusTrue = async (id) => {
+
+
+  // ------------------- Utility function to Update Status -----------------------------
+  const handleUpdateOrderStatus = async (id, orderStatus) => {
     try {
-      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/processing/${id}`);
+      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/${orderStatus}/${id}`);
       const data = response.data;
 
       toast.success(data.message, {
@@ -133,124 +93,87 @@ const Orders = () => {
 
       console.log('Updated Data : ', data);
       if (response.status === 200) {
-        handleGetPendingOrders();
-        handleGetDeliveredOrders();
-        handleGetProcessingOrders();
-        handleGetOccupiedTable();
-
+        handleGetAllOrders(showTable);
+        ['pending', 'processing', 'sentToDelivery', 'delivered', 'unoccupy'].forEach(handleGetAllOrders);
       }
     } catch (error) {
-      console.log('Unable to set status true or order not found: ', error);
+      console.log(`Unable to set status true of ${orderStatus} or order not found: `, error);
     }
   }
+
+  // To Update Processing status True
+  const handleProcessingUpdateStatusTrue = (id) => handleUpdateOrderStatus(id, 'processing');
 
   // To Update Sent To Delivery Status true
-  const handleSentToDeliveryUpdateStatusTrue = async (id) => {
-    try {
-      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/sentToDelivery/${id}`);
-      const data = response.data;
-
-      toast.success(data.message, {
-        autoClose: 1500
-      })
-
-      console.log('Updated Data : ', data);
-      if (response.status === 200) {
-        handleGetPendingOrders();
-        handleGetDeliveredOrders();
-        handleGetProcessingOrders();
-        handleGetOccupiedTable();
-        handleGetSentToDeliveryOrders();
-      }
-    } catch (error) {
-      console.log('Unable to set status true or order not found: ', error);
-    }
-  }
+  const handleSentToDeliveryUpdateStatusTrue = (id) => handleUpdateOrderStatus(id, 'sentToDelivery');
 
   // To Update Delivery Status true
-  const handleDeliveryUpdateStatusTrue = async (id) => {
-    try {
-      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/delivered/${id}`);
-      const data = response.data;
-
-      toast.success(data.message, {
-        autoClose: 1500
-      })
-
-      console.log('Updated Data : ', data);
-      if (response.status === 200) {
-        handleGetPendingOrders();
-        handleGetDeliveredOrders();
-        handleGetProcessingOrders();
-        handleGetSentToDeliveryOrders();
-        handleGetOccupiedTable();
-
-      }
-    } catch (error) {
-      console.log('Unable to set status true or order not found: ', error);
-    }
-  }
+  const handleDeliveryUpdateStatusTrue = (id) => handleUpdateOrderStatus(id, 'delivered');
 
   // To Update delivery status false
-  const handleUpdateDeliveryStatusFalse = async (id) => {
-    try {
-      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/undoDelivered/${id}`);
-      const data = response.data;
-
-      toast.success(data.message, {
-        autoClose: 1500
-      })
-
-      console.log('Updated Data : ', data);
-      if (response.status === 200) {
-        handleGetPendingOrders();
-        handleGetDeliveredOrders();
-        handleGetProcessingOrders();
-        handleGetOccupiedTable();
-
-      }
-    } catch (error) {
-      console.log('Unable to set status true or order not found: ', error);
-    }
-  }
+  const handleUpdateDeliveryStatusFalse = async (id) => handleUpdateOrderStatus(id, 'undoDelivered');
 
   // To Mark Order as paid 
-  const handleUnoccupyTable = async (id) => {
-    try {
-      const response = await axios.put(`https://personal-scan-the-menu.onrender.com/api/v1/orders/markPaid/${id}`);
-      const data = response.data;
+  const handleUnoccupyTable = async (id) => handleUpdateOrderStatus(id, 'markPaid');
 
-      toast.success(data.message, {
-        autoClose: 1500
-      })
-
-      console.log('Updated Data : ', data);
-      if (response.status === 200) {
-        handleGetPendingOrders();
-        handleGetDeliveredOrders();
-        handleGetProcessingOrders();
-        handleGetOccupiedTable();
-
-      }
-    } catch (error) {
-      console.log('Unable to set status true or order not found: ', error);
+  const tableDetails = [
+    {
+      tableName: 'pending',
+      receivedOrder: allOrders.pending,
+      changeStatus: handleProcessingUpdateStatusTrue,
+      deliveryLabel: 'Mark Processing',
+      deliveryIcon: < IoMdDoneAll />,
+      timestamp: 'createdAt',
+      handlePageClick: handlePageClick,
+      pageCount: pageCount.pending,
+    },
+    {
+      tableName: "delivered",
+      receivedOrder: allOrders.delivered,
+      changeStatus: handleUpdateDeliveryStatusFalse,
+      deliveryLabel: 'Undo Delivered',
+      deliveryIcon: <MdRemoveDone />,
+      timestamp: 'updatedAt',
+      handlePageClick: handlePageClick,
+      pageCount: pageCount.delivered,
+    },
+    {
+      tableName: 'processing',
+      receivedOrder: allOrders.processing,
+      changeStatus: handleSentToDeliveryUpdateStatusTrue,
+      deliveryLabel: 'Sent To Delivery',
+      deliveryIcon: <IoMdDoneAll />,
+      timestamp: 'updatedAt',
+      handlePageClick: handlePageClick,
+      pageCount: pageCount.processing,
+    },
+    {
+      tableName: 'sentToDelivery',
+      receivedOrder: allOrders.sentToDelivery,
+      changeStatus: handleDeliveryUpdateStatusTrue,
+      deliveryLabel: 'Mark Delivered',
+      deliveryIcon: <IoMdDoneAll />,
+      timestamp: 'updatedAt',
+      handlePageClick: handlePageClick,
+      pageCount: pageCount.sentToDelivery,
+    },
+    {
+      tableName: 'unoccupy',
+      receivedOrder: allOrders.unoccupy,
+      changeStatus: handleUnoccupyTable,
+      deliveryLabel: 'Unoccupy Table',
+      deliveryIcon: <IoMdDoneAll />,
+      timestamp: 'updatedAt',
+      handlePageClick: handlePageClick,
+      pageCount: pageCount.unoccupy,
     }
-  }
+
+  ]
 
   useEffect(() => {
 
-    pendingCurrentPage.current = 1
-    deliveredCurrentPage.current = 1
-    processingCurrentPage.current = 1
-    sentDeliveryCurrentPage.current = 1
-    occupiedCurrentPage.current = 1
-
-    handleGetPendingOrders();
-    handleGetDeliveredOrders();
-    handleGetProcessingOrders();
-    handleGetOccupiedTable();
-    handleGetSentToDeliveryOrders();
-    handleGetSentToDeliveryOrders();
+    currentPage.current = 1
+    handleGetAllOrders(showTable)
 
   }, [showTable])
 
@@ -259,62 +182,33 @@ const Orders = () => {
     <main className='main'>
       <section className='orders'>
         <div className="chooseOrders">
-          <button className={showTable === 'pending' ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable('pending')}>Pending Orders</button>
-          <button className={showTable === 'processing' ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable('processing')}>Processing Orders</button>
-          <button className={showTable === 'sentToDelivery' ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable('sentToDelivery')}>Sent To Delivery</button>
-          <button className={showTable === 'delivered' ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable('delivered')}>Delivered Orders</button>
-          <button className={showTable === 'unoccupy' ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable('unoccupy')}>Unoccupy Table</button>
+          {
+            ['pending', 'processing', 'sentToDelivery', 'delivered', 'unoccupy'].map((currTable, index) => {
+              return (
+                <button className={showTable === currTable ? 'orderBtn highlightBtn' : 'orderBtn'} onClick={() => setShowTable(currTable)} key={index}>{currTable.toUpperCase()} Orders</button>
+              )
+            })
+          }
         </div>
 
         <div className="orderTable">
           {
-            showTable === 'delivered' ?
-              <OrderTable
-                receivedOrder={deliveredOrders}
-                changeStatus={handleUpdateDeliveryStatusFalse}
-                deliveryLabel='Undo Delivered'
-                deliveryIcon={<MdRemoveDone />}
-                timestamp={'updatedAt'}
-                handlePageClick={handlePageClick}
-                pageCount={deliveredPageCount}
-              />
-              : showTable === 'pending' ?
+            tableDetails.map((currTable, index) => {
+              const { tableName, receivedOrder, changeStatus, deliveryLabel, deliveryIcon, timestamp, handlePageClick, pageCount } = currTable;
+              return (
+                showTable === tableName &&
                 <OrderTable
-                  receivedOrder={pendingOrders}
-                  changeStatus={handleProcessingUpdateStatusTrue}
-                  deliveryLabel='Mark Processing'
-                  deliveryIcon={<IoMdDoneAll />}
-                  timestamp={'createdAt'}
+                  receivedOrder={receivedOrder}
+                  changeStatus={changeStatus}
+                  deliveryLabel={deliveryLabel}
+                  deliveryIcon={deliveryIcon}
+                  timestamp={timestamp}
                   handlePageClick={handlePageClick}
-                  pageCount={pendingPageCount}
-                /> : showTable === 'processing' ?
-                  <OrderTable
-                    receivedOrder={processingOrders}
-                    changeStatus={handleSentToDeliveryUpdateStatusTrue}
-                    deliveryLabel='Sent To Delivery'
-                    deliveryIcon={<IoMdDoneAll />}
-                    timestamp={'updatedAt'}
-                    handlePageClick={handlePageClick}
-                    pageCount={processingPageCount}
-                  /> : showTable === 'sentToDelivery' ?
-                    <OrderTable
-                      receivedOrder={sentToDeliverydOrders}
-                      changeStatus={handleDeliveryUpdateStatusTrue}
-                      deliveryLabel='Mark Delivered'
-                      deliveryIcon={<IoMdDoneAll />}
-                      timestamp={'updatedAt'}
-                      handlePageClick={handlePageClick}
-                      pageCount={sentToDeliveryPageCount}
-                    /> :
-                    <OrderTable
-                      receivedOrder={occupiedTable}
-                      changeStatus={handleUnoccupyTable}
-                      deliveryLabel='Unoccupy Table'
-                      deliveryIcon={<IoMdDoneAll />}
-                      timestamp={'updatedAt'}
-                      handlePageClick={handlePageClick}
-                      pageCount={occupiedPageCount}
-                    />
+                  pageCount={pageCount}
+                  key={index}
+                />
+              )
+            })
           }
 
         </div>

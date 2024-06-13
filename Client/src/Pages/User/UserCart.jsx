@@ -114,7 +114,7 @@ const UserCart = () => {
             toast.warning(warn[2], {
                 autoClose: 1500
             })
-            console.log( 'Unable to place order online : ', error);
+            console.log('Unable to place order online : ', error);
         }
     }
     const handlePlaceOrder = async () => {
@@ -146,7 +146,7 @@ const UserCart = () => {
             toast.warning(warn[2], {
                 autoClose: 1500
             })
-            console.log( 'Unable to place order : ', error);
+            console.log('Unable to place order : ', error);
         }
     }
 
@@ -196,87 +196,87 @@ const UserCart = () => {
                 <h3>Shopping Cart</h3>
             </div>
             <div className="cartTable">
-            {
-                cartLength === 0 ? <h2>Your Cart Is Empty</h2> :
-                    <table className='cartData'>
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Title</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total Price</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
+                {
+                    cartLength === 0 ? <h2>Your Cart Is Empty</h2> :
+                        <table className='cartData'>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Title</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
 
-                        <tbody className='cartItems'>
-                            {
-                                cartData.map((currElem, index) => {
-                                    const { dishName, file, dishPrice, quantity, _id } = currElem;
-                                    return (
-                                        <tr key={index}>
-                                            <td className="itemImg">
-                                                <img src={file} alt={dishName} />
-                                            </td>
-                                            <td className="itemTitle">
-                                                <h4>{dishName}</h4>
-                                            </td>
-                                            <td className="itemQuantity">
-                                                <h4 className='quantityControl dFlex'>
-                                                    <span onClick={() => quantity <= 1 ? handleRemoveItem(_id) : handleDecreaseQuantity(_id)}>-</span>
-                                                    {quantity}
-                                                    <span onClick={() => handleIncreaseQuantity(_id)}>+</span>
-                                                </h4>
-                                            </td>
-                                            <td className="itemPrice">
-                                                <h4>{dishPrice} Rs</h4>
-                                            </td>
-                                            <td className='itemTotalprice'>
-                                                <h4>{dishPrice * quantity} Rs</h4>
-                                            </td>
-                                            <td className="itemControls">
-                                                <button onClick={() => handleRemoveItem(_id)}><FaTrashAlt /></button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-
-                        </tbody>
-
-                        <tfoot className='cartFooter'>
-                            <tr>
-                                <th colSpan={2}>
-                                    <select name="tableNumber" id="tableNo" onChange={(e) => setTableNumber(e.target.value)}>
-                                        <option value="#" className='disabledOption'>Select Table Number</option>
-
-                                        {
-                                            leftTableNo.map((tableNo, index) => (
-                                                <>
-                                                    <option value={tableNo} key={index}>{tableNo}</option>
-                                                </>
-                                            ))
-                                        }
-                                    </select>
-                                </th>
-                                <th>Total Items : <span>{totalQuantity}</span></th>
-                                <th>Total Amount : <span>{total}Rs</span></th>
-                                <th><select name="paymentMode" id="paymentMode" onChange={selectPaymentMode}>
-                                    <option value="#" className='disabledOption'>Select Payment Method</option>
-                                    <option value="COD">COD</option>
-                                    <option value="Online">Online</option>
-                                </select></th>
+                            <tbody className='cartItems'>
                                 {
-
-                                    showOnlinePayment ? <th><button type='button' className='btn' onClick={handlePlaceOrderOnline}>Online</button></th>
-                                        : <th><button type='button' className='btn' onClick={handlePlaceOrder}>Checkout</button></th>
+                                    cartData.map((currElem, index) => {
+                                        const { dishName, file, dishPrice, quantity, _id } = currElem;
+                                        return (
+                                            <tr key={index}>
+                                                <td className="itemImg">
+                                                    <img src={file} alt={dishName} />
+                                                </td>
+                                                <td className="itemTitle">
+                                                    <h4>{dishName}</h4>
+                                                </td>
+                                                <td className="itemQuantity">
+                                                    <h4 className='quantityControl dFlex'>
+                                                        <span onClick={() => quantity <= 1 ? handleRemoveItem(_id) : handleDecreaseQuantity(_id)}>-</span>
+                                                        {quantity}
+                                                        <span onClick={() => handleIncreaseQuantity(_id)}>+</span>
+                                                    </h4>
+                                                </td>
+                                                <td className="itemPrice">
+                                                    <h4>{dishPrice} Rs</h4>
+                                                </td>
+                                                <td className='itemTotalprice'>
+                                                    <h4>{dishPrice * quantity} Rs</h4>
+                                                </td>
+                                                <td className="itemControls">
+                                                    <button onClick={() => handleRemoveItem(_id)}><FaTrashAlt /></button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
                                 }
 
-                            </tr>
-                        </tfoot>
-                    </table>
-            }
+                            </tbody>
+
+                            <tfoot className='cartFooter'>
+                                <tr>
+                                    <th colSpan={2}>
+                                        <select name="tableNumber" id="tableNo" onChange={(e) => setTableNumber(e.target.value)}>
+                                            <option value="#" className='disabledOption'>Select Table Number</option>
+
+                                            {
+                                                leftTableNo.map((tableNo, index) => (
+                                                    <>
+                                                        <option value={tableNo} key={index}>{tableNo}</option>
+                                                    </>
+                                                ))
+                                            }
+                                        </select>
+                                    </th>
+                                    <th>Total Items : <span>{totalQuantity}</span></th>
+                                    <th>Total Amount : <span>{total}Rs</span></th>
+                                    <th><select name="paymentMode" id="paymentMode" onChange={selectPaymentMode}>
+                                        <option value="#" className='disabledOption'>Select Payment Method</option>
+                                        <option value="COD">COD</option>
+                                        <option value="Online">Online</option>
+                                    </select></th>
+                                    {
+
+                                        showOnlinePayment ? <th><button type='button' className='btn' onClick={handlePlaceOrderOnline}>Online</button></th>
+                                            : <th><button type='button' className='btn' onClick={handlePlaceOrder}>Checkout</button></th>
+                                    }
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                }
             </div>
         </main>
     )

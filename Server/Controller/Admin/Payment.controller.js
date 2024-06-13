@@ -1,408 +1,129 @@
 const paymentModel = require('../../Model/Payment.Model');
 
-// To Update the status of pending to processing
-const setProcessingStatusTrue = async (req, res) => {
-    try {
-        const setStatusTrue = await paymentModel.findByIdAndUpdate(req.params.id,
-            {
-                delivered: false,
-                processing: true,
-                pending: false
-            },
-            { new: true }
-        )
+// -----------------------------Update Status Functions ---------------------------
 
-        if (!setStatusTrue) {
+// Utility Function for Status Update
+const updateStatus = async (req, res, updatedFields, successMessage) => {
+    try {
+        const updatedOrders = await paymentModel.findByIdAndUpdate(req.params.id, updatedFields, { new: true });
+
+        if (!updatedOrders) {
             return res.status(404).json({
                 success: false,
-                message: 'Unable to set status true or order not found'
-            })
+                message: 'Order not found or unable to update status'
+            });
         }
 
         return res.status(200).json({
             success: true,
-            message: 'Status Updated to True',
-            setStatusTrue
+            message: successMessage,
+            updatedOrders
         })
-
     } catch (error) {
-        console.log('Unable to Update delivered status : ', error);
-
+        console.error('Error updating status:', error);
         return res.status(500).json({
             success: false,
-            message: 'Unable to update delivery status',
+            message: 'Unable to update status',
             error: error.message
         });
     }
 }
 
+// To Update the status of pending to processing
+const setProcessingStatusTrue = (req, res) => updateStatus(req, res,
+    {
+        delivered: false,
+        processing: true,
+        pending: false
+    }, 'Status updated to processing'
+)
 
 // To Update the status of Processsing to sentToDelivery
-const setSentToDeliveryStatusTrue = async (req, res) => {
-    try {
-        const setStatusTrue = await paymentModel.findByIdAndUpdate(req.params.id,
-            {
-
-                sentToDelivery: true,
-                delivered: false,
-                processing: false,
-                pending: false
-            },
-            { new: true }
-        )
-
-        if (!setStatusTrue) {
-            return res.status(404).json({
-                success: false,
-                message: 'Unable to set status true or order not found'
-            })
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: 'Status Updated to True',
-            setStatusTrue
-        })
-
-    } catch (error) {
-        console.log('Unable to Update delivered status : ', error);
-
-        return res.status(500).json({
-            success: false,
-            message: 'Unable to update delivery status',
-            error: error.message
-        });
-    }
-}
+const setSentToDeliveryStatusTrue = (req, res) => updateStatus(req, res, {
+    sentToDelivery: true,
+    delivered: false,
+    processing: false,
+    pending: false
+}, 'Status updated to sent to delivery'
+)
 
 // To Update the status of sentToDelivery to Delivered
-const setDeliveryStatusTrue = async (req, res) => {
-    try {
-        const setStatusTrue = await paymentModel.findByIdAndUpdate(req.params.id,
-            {
-                delivered: true,
-                sentToDelivery: false,
-                processing: false,
-                pending: false
-            },
-            { new: true }
-        )
-
-        if (!setStatusTrue) {
-            return res.status(404).json({
-                success: false,
-                message: 'Unable to set status false or order not found'
-            })
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: 'Status Updated to false',
-            setStatusTrue
-        })
-
-    } catch (error) {
-        console.log('Unable to Update delivered status : ', error);
-
-        return res.status(500).json({
-            success: false,
-            message: 'Unable to update delivery status',
-            error: error.message
-        });
-    }
-}
+const setDeliveryStatusTrue = (req, res) => updateStatus(req, res, {
+    delivered: true,
+    sentToDelivery: false,
+    processing: false,
+    pending: false
+}, 'Status updated to delivered'
+)
 
 // To Update the status of Delivered to processing
-const setDeliveryStatusFalse = async (req, res) => {
-    try {
-        const setStatusTrue = await paymentModel.findByIdAndUpdate(req.params.id,
-            {
-                delivered: false,
-                sentToDelivery: true,
-                processing: false,
-                pending: false
-            },
-            { new: true }
-        )
-
-        if (!setStatusTrue) {
-            return res.status(404).json({
-                success: false,
-                message: 'Unable to set status false or order not found'
-            })
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: 'Status Updated to false',
-            setStatusTrue
-        })
-
-    } catch (error) {
-        console.log('Unable to Update delivered status : ', error);
-
-        return res.status(500).json({
-            success: false,
-            message: 'Unable to update delivery status',
-            error: error.message
-        });
-    }
-}
+const setDeliveryStatusFalse = (req, res) => updateStatus(req, res, {
+    delivered: false,
+    sentToDelivery: true,
+    processing: false,
+    pending: false
+}, 'Status updated to not delivered'
+)
 
 // To Update Status of Occupied Seat To False
-const setUnOccupiedTable = async (req, res) => {
-    try {
-        const setStatusTrue = await paymentModel.findByIdAndUpdate(req.params.id,
-            {
-                delivered: false,
-                processing: false,
-                pending: false,
-                isTableOccupied: false,
-                isPaymentDone: true
-            },
-            { new: true }
-        )
+const setUnOccupiedTable = (req, res) => updateStatus(req, res, {
+    delivered: false,
+    processing: false,
+    pending: false,
+    isTableOccupied: false,
+    isPaymentDone: true
+}, 'Table set to unoccupied'
+)
 
-        if (!setStatusTrue) {
-            return res.status(404).json({
-                success: false,
-                message: 'Unable to set status false or order not found'
-            })
-        }
+
+
+// -------------------------------------Pagination  Functions ----------------------------------------
+
+// Utility function for pagination on tables
+const applyPaginationOnTable = async (req, res, filter) => {
+    try {
+        const { limit, page } = req.query;
+        const orders = await paymentModel.find(filter)
+            .skip((page - 1) * limit)
+            .limit(parseInt(limit));
+
+        const totalOrders = await paymentModel.countDocuments();
 
         return res.status(200).json({
             success: true,
-            message: 'Status Updated to false',
-            setStatusTrue
+            message: 'Pagination applied',
+            result: {
+                pageCount: Math.ceil(totalOrders / limit),
+                paginatedResult: orders,
+                currentPage: page
+            }
         })
 
     } catch (error) {
-        console.log('Unable to Update delivered status : ', error);
-
         return res.status(500).json({
             success: false,
-            message: 'Unable to update delivery status',
+            message: 'Pagination failed',
             error: error.message
         });
     }
 }
-
 
 // To Apply Pagination On Pending
-const setPaginationOnPending = async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit);
-        const page = parseInt(req.query.page);
-
-        const orders = await paymentModel.find({ pending: true });
-
-        const startIndex = (page - 1) * limit;
-        const lastIndex = page * limit;
-
-        const result = {};
-        result.totalOrders = orders.length;
-        result.pageCount = Math.ceil(orders.length / limit)
-
-        if (lastIndex < orders.length) {
-            result.next = {
-                page: page + 1
-            }
-        }
-
-        if (startIndex > 0) {
-            result.previous = {
-                page: page - 1
-            }
-        }
-
-        result.paginatedResult = orders.slice(startIndex, lastIndex)
-
-        res.status(200).json({
-            success: true,
-            message: 'Pagination Applied',
-            result
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Pagination Failed',
-            error: error.message
-        })
-    }
-}
+const setPaginationOnPending = (req, res) => applyPaginationOnTable(req, res, { pending: true });
 
 
-// To Apply Pagination On Processing
-const setPaginationOnProcessing = async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit);
-        const page = parseInt(req.query.page);
-
-        const orders = await paymentModel.find({ processing: true });
-        console.log(orders.length);
-
-        const startIndex = (page - 1) * limit;
-        const lastIndex = page * limit;
-
-        const result = {};
-        result.totalOrders = orders.length;
-        result.pageCount = Math.ceil(orders.length / limit)
-
-        if (lastIndex < orders.length) {
-            result.next = {
-                page: page + 1
-            }
-        }
-
-        if (startIndex > 0) {
-            result.previous = {
-                page: page - 1
-            }
-        }
-
-        result.paginatedResult = orders.slice(startIndex, lastIndex)
-
-        res.status(200).json({
-            success: true,
-            message: 'Pagination Applied',
-            result
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Pagination Failed',
-            error: error.message
-        })
-    }
-}
+//  To Apply Pagination On Processing
+const setPaginationOnProcessing = (req, res) => applyPaginationOnTable(req, res, { processing: true });
 
 // To Apply Pagination on Sent to delivery
-const setPaginationOnSentToDelivery = async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit);
-        const page = parseInt(req.query.page);
+const setPaginationOnSentToDelivery = (req, res) => applyPaginationOnTable(req, res, { sentToDelivery: true });
 
-        const orders = await paymentModel.find({ sentToDelivery: true });
-        console.log(orders.length);
+// To Apply Pagination On Delivered 
+const setPaginationOnDelivered = (req, res) => applyPaginationOnTable(req, res, { delivered: true });
 
-        const startIndex = (page - 1) * limit;
-        const lastIndex = page * limit;
+// Pagination On Occupied Table 
+const setPaginationOnOccupiedTable = (req, res) => applyPaginationOnTable(req, res, { isTableOccupied: true })
 
-        const result = {};
-        result.totalOrders = orders.length;
-        result.pageCount = Math.ceil(orders.length / limit)
-
-        if (lastIndex < orders.length) {
-            result.next = {
-                page: page + 1
-            }
-        }
-
-        if (startIndex > 0) {
-            result.previous = {
-                page: page - 1
-            }
-        }
-
-        result.paginatedResult = orders.slice(startIndex, lastIndex)
-
-        res.status(200).json({
-            success: true,
-            message: 'Pagination Applied',
-            result
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Pagination Failed',
-            error: error.message
-        })
-    }
-}
-
-// To Apply Pagination On Delivered
-const setPaginationOnDelivered = async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit);
-        const page = parseInt(req.query.page);
-
-        const orders = await paymentModel.find({ delivered: true });
-        console.log(orders.length);
-
-        const startIndex = (page - 1) * limit;
-        const lastIndex = page * limit;
-
-        const result = {};
-        result.totalOrders = orders.length;
-        result.pageCount = Math.ceil(orders.length / limit)
-
-        if (lastIndex < orders.length) {
-            result.next = {
-                page: page + 1
-            }
-        }
-
-        if (startIndex > 0) {
-            result.previous = {
-                page: page - 1
-            }
-        }
-
-        result.paginatedResult = orders.slice(startIndex, lastIndex)
-
-        res.status(200).json({
-            success: true,
-            message: 'Pagination Applied',
-            result
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Pagination Failed',
-            error: error.message
-        })
-    }
-}
-
-// Pagination On Occupied Table
-const setPaginationOnOccupiedTable = async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit);
-        const page = parseInt(req.query.page);
-
-        const orders = await paymentModel.find({ isTableOccupied: true });
-        console.log('Total occupied orders:', orders.length);
-
-        const totalOrders = orders.length;
-        const pageCount = Math.ceil(totalOrders / limit);
-
-        const startIndex = (page - 1) * limit;
-        const endIndex = Math.min(startIndex + limit, totalOrders); // Ensure endIndex does not exceed totalOrders
-
-        const paginatedResult = orders.slice(startIndex, endIndex);
-
-        res.status(200).json({
-            success: true,
-            message: 'Pagination Applied',
-            result: {
-                totalOrders,
-                pageCount,
-                paginatedResult: orders
-            }
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Pagination Failed',
-            error: error.message
-        });
-    }
-};
 
 
 const getAllPaymentData = async (req, res) => {
