@@ -57,8 +57,8 @@ Welcome to our latest project: The E-commerce Restaurant Management Web Applicat
 ### Admin Panel
 - **Admin Authentication**: [Admin Authentication, /adminauth](https://personal-scan-the-menu.vercel.app/adminauth)
 - **Admin Dashboard**: [Admin Dashboard, /admin](https://personal-scan-the-menu.vercel.app/admin)
-- **Orders**: [Orders](https://personal-scan-the-menu.vercel.app/orders)
-- **Menu Management**: [Menu Management, /orders](https://personal-scan-the-menu.vercel.app/menuManage)
+- **Orders**: [Orders, /orders](https://personal-scan-the-menu.vercel.app/orders)
+- **Menu Management**: [Menu Management, /menuManage](https://personal-scan-the-menu.vercel.app/menuManage)
 - **Create Dish**: [Create Dish, createDish](https://personal-scan-the-menu.vercel.app/createDish)
 
 ## API Endpoints
