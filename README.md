@@ -6,6 +6,15 @@ Welcome to our latest project: The E-commerce Restaurant Management Web Applicat
 ### Revolutionize Your Dining Experience! 🍽️
 - **Order Directly from Your Table**: Scan the QR code placed on your table to order your favorite dishes instantly.
 
+### Test Credentials
+**User Login** : 
+-**Email**: test@123 (Inspect the browser and move to network tab to get the otp )
+-**Password**: Test@123
+
+**Admin Login** : 
+-**Admin Id**: IamAdmin
+-**Password**: Admin@123
+
 ### Live Demo
 - [Live Application](https://personal-scan-the-menu.vercel.app/)
 - [GitHub Repository](https://github.com/TejasDhodi/Personal-Scan-The-Menu.git)
@@ -38,19 +47,19 @@ Welcome to our latest project: The E-commerce Restaurant Management Web Applicat
 ## Routes
 
 ### User Panel
-- **Home**: [Home](https://personal-scan-the-menu.vercel.app/)
-- **Menu**: [Menu](https://personal-scan-the-menu.vercel.app/menu)
-- **Contact**: [Contact](https://personal-scan-the-menu.vercel.app/contact)
-- **Tables**: [Tables](https://personal-scan-the-menu.vercel.app/tables)
-- **Cart**: [Cart](https://personal-scan-the-menu.vercel.app/menu/cart)
-- **Profile**: [Profile](https://personal-scan-the-menu.vercel.app/profile)
+- **Home**: [Home, https://personal-scan-the-menu.vercel.app/](https://personal-scan-the-menu.vercel.app/)
+- **Menu**: [Menu, /menu](https://personal-scan-the-menu.vercel.app/menu)
+- **Contact**: [Contact, /contact](https://personal-scan-the-menu.vercel.app/contact)
+- **Tables**: [Tables, /tables](https://personal-scan-the-menu.vercel.app/tables)
+- **Cart**: [Cart, /menu/cart](https://personal-scan-the-menu.vercel.app/menu/cart)
+- **Profile**: [Profile, profile](https://personal-scan-the-menu.vercel.app/profile)
 
 ### Admin Panel
-- **Admin Authentication**: [Admin Authentication](https://personal-scan-the-menu.vercel.app/adminauth)
-- **Admin Dashboard**: [Admin Dashboard](https://personal-scan-the-menu.vercel.app/admin)
+- **Admin Authentication**: [Admin Authentication, /adminauth](https://personal-scan-the-menu.vercel.app/adminauth)
+- **Admin Dashboard**: [Admin Dashboard, /admin](https://personal-scan-the-menu.vercel.app/admin)
 - **Orders**: [Orders](https://personal-scan-the-menu.vercel.app/orders)
-- **Menu Management**: [Menu Management](https://personal-scan-the-menu.vercel.app/menuManage)
-- **Create Dish**: [Create Dish](https://personal-scan-the-menu.vercel.app/createDish)
+- **Menu Management**: [Menu Management, /orders](https://personal-scan-the-menu.vercel.app/menuManage)
+- **Create Dish**: [Create Dish, createDish](https://personal-scan-the-menu.vercel.app/createDish)
 
 ## API Endpoints
 
