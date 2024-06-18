@@ -19,6 +19,7 @@ const UpdateDish = () => {
     })
 
     const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const { id } = useParams()
     const navigate = useNavigate();
@@ -39,6 +40,8 @@ const UpdateDish = () => {
     const handleUpdate = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true);
+
             const formData = new FormData();
             formData.append('dishName', inputs.dishName)
             formData.append('dishMacros', inputs.dishMacros)
@@ -56,15 +59,17 @@ const UpdateDish = () => {
                 }
             });
 
-            if(response.status === 200) {
+            if (response.status === 200) {
 
                 toast.success('Updated Successfully', {
                     autoClose: 1500
                 });
-                
+
+                setLoading(false);
                 navigate('/menuManage')
             }
         } catch (error) {
+            setErrorMsg(error.response.data.message);
             console.log('Unable to update the dish : ', error);
         }
     }
@@ -92,6 +97,9 @@ const UpdateDish = () => {
             }
 
         } catch (error) {
+            toast.error(error.response.data.message, {
+                autoClose: 3000
+            })
             console.log('Unable to get the dish by id');
         }
     }
@@ -106,6 +114,7 @@ const UpdateDish = () => {
                 handleUpdate={handleUpdate}
                 handleInputs={handleInputs}
                 handleFile={handleFile}
+                loading={loading}
                 inputs={inputs}
             />
         </div>

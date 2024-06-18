@@ -1,10 +1,11 @@
 import React from 'react'
 import { dishCategories, dishCusines, dishTypes, inputFields } from '../../Service/Admin';
 
-const DishFormComponent = ({handleSubmit, handleUpdate, handleInputs, handleFile, inputs, focusDishName}) => {
-    
+const DishFormComponent = ({ handleSubmit, handleUpdate, handleInputs, handleFile, inputs, focusDishName, loading }) => {
+
     return (
-        <form className='addDishDetails' onSubmit={handleSubmit? handleSubmit : handleUpdate}>
+        <form className='addDishDetails' onSubmit={handleSubmit ? handleSubmit : handleUpdate}>
+
             <h2>Add Dish</h2>
 
             <div className="dishTitle">
@@ -104,7 +105,7 @@ const DishFormComponent = ({handleSubmit, handleUpdate, handleInputs, handleFile
             </div>
 
             <div className="controls">
-                <button type="submit">{handleUpdate? 'Update': 'Add Dish'}</button>
+                <button type="submit" disabled={loading}>{loading ? '...' : (handleUpdate ? 'Update' : 'Add Dish')}</button>
             </div>
 
         </form>

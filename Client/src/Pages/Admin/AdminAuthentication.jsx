@@ -15,6 +15,8 @@ const AdminAuthentication = () => {
         password: ''
     })
 
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -29,6 +31,7 @@ const AdminAuthentication = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true)
             const response = await axios.post('https://personal-scan-the-menu.onrender.com/api/v1/adminAuth', inputs, {
                 headers: {
                     "Content-Type": 'application/json'
@@ -42,9 +45,12 @@ const AdminAuthentication = () => {
                     autoClose: 1500
                 })
 
+                setLoading(false)
+
                 dispatch(saveAdminAuthToken(data.adminAuthToken))
                 navigate('/admin')
             }
+
             console.log(`inputs : ${data}`);
         } catch (error) {
             toast.warning('Not Authorized', {
@@ -70,7 +76,7 @@ const AdminAuthentication = () => {
                 }
 
                 <div className="controls">
-                    <button type='submit' className='btn'>Submit</button>
+                    <button type='submit' className='btn' disabled={loading}>{loading ? '...' : 'Submit'}</button>
                 </div>
             </form>
 

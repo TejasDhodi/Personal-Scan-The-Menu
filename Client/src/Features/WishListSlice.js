@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const storedWishList = localStorage.getItem('Dish WishList');
 
 let initialState = {
@@ -23,19 +26,26 @@ const wishListSlice = createSlice({
     reducers: {
         addToWishList: (state, action) => {
             const dishId = action.payload._id;
-            const isDishInWishList = state.wishList.some(dish => dish._id === dishId);
+            const isDishInWishList = state.wishList.find(dish => dish._id === dishId);
 
             if (!isDishInWishList) {
                 console.log('available Dish : ', isDishInWishList);
-                state.wishList = [...state.wishList, action.payload] // Mutating the state directly
-                return localStorage.setItem('Dish WishList', JSON.stringify(state.wishList)); // Storing the updated wish list in local storage
+                toast.success('Item Added in wishlist', {
+                    autoClose: 500
+                })
+                state.wishList = [...state.wishList, action.payload]
+                return localStorage.setItem('Dish WishList', JSON.stringify(state.wishList));
+            } else {
+                toast.warning('Item Already in wishlist', {
+                    autoClose: 500
+                })
             }
         },
-        removeFromWishList : (state, action) => {
+        removeFromWishList: (state, action) => {
             state.wishList = state.wishList.filter(dish => dish._id !== action.payload)
             localStorage.setItem('Dish WishList', JSON.stringify(state.wishList));
         }
-    }   
+    }
 });
 
 
