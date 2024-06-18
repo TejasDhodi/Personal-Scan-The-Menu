@@ -87,13 +87,13 @@ const applyPaginationOnTable = async (req, res, filter) => {
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
-        const totalOrders = await paymentModel.countDocuments();
+        const totalOrders = await paymentModel.find(filter);
 
         return res.status(200).json({
             success: true,
             message: 'Pagination applied',
             result: {
-                pageCount: Math.ceil(totalOrders / limit),
+                pageCount: Math.ceil(totalOrders.length / limit), 
                 paginatedResult: orders,
                 currentPage: page
             }
