@@ -8,12 +8,12 @@ Welcome to our latest project: The E-commerce Restaurant Management Web Applicat
 
 ### Test Credentials
 **User Login** : 
--**Email**: test@123 (Inspect the browser and move to network tab to get the otp )
--**Password**: Test@123
+- **Email**: test@123 (Inspect the browser and move to network tab to get the otp )
+- **Password**: Test@123
 
 **Admin Login** : 
--**Admin Id**: IamAdmin
--**Password**: Admin@123
+- **Admin Id**: IamAdmin
+- **Password**: Admin@123
 
 ### Live Demo
 - [Live Application](https://personal-scan-the-menu.vercel.app/)
